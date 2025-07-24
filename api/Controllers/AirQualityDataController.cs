@@ -29,5 +29,4 @@ public class AirQualityDataController : ControllerBase
 
         return Ok(result);
     }
-    
 };

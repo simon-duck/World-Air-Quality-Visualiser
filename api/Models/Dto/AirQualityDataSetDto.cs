@@ -87,37 +87,3 @@ public class So2
 }
 
 
-// public AirQualityDataSetDto(
-//     int idx,
-//     string name,
-//     int aqi,
-//     string dominantPollutant,
-//     int humidity,
-//     int ozone,
-//     int pressure,
-//     int pm1,
-//     int pm10,
-//     int pm25,
-//     int so2,
-//     int co,
-//     int co2,
-//     int no2,
-//     int wind
-// )
-// {
-//     Uid = idx;
-//     Name = name;
-//     AQI = aqi;
-//     DominantPollutant = dominantPollutant;
-//     Humidity = humidity;
-//     Ozone = ozone;
-//     Pressure = pressure;
-//     PM1 = pm1;
-//     PM10 = pm10;
-//     PM25 = pm25;
-//     So2 = so2;
-//     Co = co;
-//     Co2 = co2;
-//     No2 = no2;
-//     Wind = wind;
-// }
