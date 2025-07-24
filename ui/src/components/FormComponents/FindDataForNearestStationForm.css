@@ -3,7 +3,7 @@
 }
 
 body {
-  background: linear-gradient(90deg,#a4d5ff,#ffffff);
+  background: #a4d5ff;
   font-family: 'Montserrat', sans-serif;
   height: 100vh;
   width: 100vw;
@@ -15,6 +15,7 @@ body {
   transform: translate(-50%,-50%);
   top: 50%;
   left: 50%;
+  
 }
 
 form {
@@ -29,6 +30,8 @@ form {
   text-align: center;
   position: relative;
   transition: all 0.2s ease-in-out;
+  border-radius: 60px;
+  opacity: 0.8;
 }
 
   p {
@@ -69,24 +72,30 @@ form {
     font-weight: 500;
     transition: all 0.2s ease-in-out;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    opacity: 1;
     
     &:hover {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.3);
       box-shadow: 4px 4px 60px 8px rgba(0,0,0,0.2);
     }
     
     &[type="text"] {
       
       &:focus {
-        background: rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.5);
         box-shadow: 4px 4px 60px 8px rgba(0,0,0,0.2);
+        opacity: 1;
       }
     }
     
-    &[type="button"] {
+    &[type="submit"] {
       margin-top: 10px;
-      width: 150px;
+      font-weight:500;
+      width: 200px;
       font-size: 1rem;
+      background: #fff204;
+      color: #000000;
+      opacity: 1;
       
       &:hover {
         cursor: pointer;
@@ -104,7 +113,7 @@ form {
 
 
 ::placeholder {
-  font-weight: 400;
+  font-weight: 00;
   color: #000000;
   text-shadow: 2px 2px 4px rgba(255,255,255,0.2);}
 

@@ -18,12 +18,12 @@ export function FindDataForNearestStationForm(): JSX.Element {
     <div className="container">
       
     <form onSubmit={handleSubmit(onSubmit)}>
-      <p>Click the Map to get results for nearest Air Quality Station</p>
-      <input type="text" placeholder="Longitude" {...register("Longitude", {required: true, pattern: /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/i})} />
+      <p className="font-medium">Click the Map to get results for nearest Air Quality Station</p>
+      <input className="font-medium" type="text" placeholder="Longitude" {...register("Longitude", {required: true, pattern: /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/i})} />
       
-      <input type="text" placeholder="Latitude" {...register("Latitude", {required: true, pattern: /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/i})} />
+      <input className="font-medium" type="text" placeholder="Latitude" {...register("Latitude", {required: true, pattern: /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/i})} />
       <p>
-      <input type="submit" />
+      <input className="font-medium" type="submit" />
       </p>
     </form>
     </div>
