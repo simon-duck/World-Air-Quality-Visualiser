@@ -15,7 +15,7 @@ public class AirQualityDataController : ControllerBase
     }
 
     [HttpGet("air-quality-data-by-uid/{uid}")]
-    public async Task<ActionResult<AirQualityDataSetDto>> AirQualityByUID(int uid)
+    public async Task<ActionResult<string>> AirQualityByUID(int uid)
     {
         var result = await _airQualityDataRepository.GetDataByUID(uid);
 

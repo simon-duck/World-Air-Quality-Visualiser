@@ -1,8 +1,10 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
 using api.Database;
 using api.Models.Dto;
 using dotenv.net;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity.Data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -11,7 +13,7 @@ namespace api.Repositories;
 
 public interface IAirQualityDataRepository
 {
-    Task<Newtonsoft.Json.Linq.JToken> GetDataByUID(int uid);
+    Task<AirQualityDataSetDto> GetDataByUID(int uid);
 }
 
 public class AirQualityDataRepository : IAirQualityDataRepository
@@ -23,23 +25,36 @@ public class AirQualityDataRepository : IAirQualityDataRepository
         _context = context;
     }
 
-    public async Task<Newtonsoft.Json.Linq.JToken> GetDataByUID(int uid)
+    public async Task<AirQualityDataSetDto> GetDataByUID(int uid)
     {
         var envVars = DotEnv.Read();
-        var client = new RestClient(
-            $"http://api.waqi.info/feed/@{uid}/?token={envVars["AIR_POLLUTION_API_KEY"]}"
+        var client = new RestClient();
+        var request = new RestRequest(
+            $"http://api.waqi.info/feed/@{uid}/?token={envVars["AIR_POLLUTION_API_KEY"]}",
+            Method.Get
         );
-        Console.WriteLine(envVars["AIR_POLLUTION_API_KEY"]);
-        var request = new RestRequest("search", Method.Get);
-        RestResponse response = await client.ExecuteAsync(request);
 
-        if (response.IsSuccessful && response.Content != null)
+        Console.WriteLine(request);
+        var response = await client.ExecuteAsync<RestResponse>(request);
+        // var content = await client.GetAsync<AirQualityDataSetDto>(request);
+
+        var jsonResult = response.Content;
+
+        if (jsonResult != null)
         {
-            var content = JsonConvert.DeserializeObject<JToken>(response.Content);
+            JObject parsedJsonResult = JObject.Parse(jsonResult);
+            AirQualityDataSetDto? uniqueAirQualityData =
+                parsedJsonResult.ToObject<AirQualityDataSetDto>();
+            var uniqueAirQuaility = new AirQualityDataSetDto();
 
-            return content;
+            if (uniqueAirQualityData != null)
+            {
+                Console.WriteLine(uniqueAirQualityData.Data?.City?.Name);
+
+                return uniqueAirQualityData;
+            }
         }
 
-        throw new Exception("No Station found with UID {uid}");
+        throw new Exception($"No Station found with UID {uid}");
     }
 }

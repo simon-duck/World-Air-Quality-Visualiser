@@ -5,6 +5,7 @@ using api.Repositories;
 using dotenv.net;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 DotEnv.Load();
@@ -13,6 +14,7 @@ DotEnv.Load();
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IStationLocationRepository, StationLocationRepository>();
+builder.Services.AddScoped<IAirQualityDataRepository, AirQualityDataRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AirPollutionDbContext>();
