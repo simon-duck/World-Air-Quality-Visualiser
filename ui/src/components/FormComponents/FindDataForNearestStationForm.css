@@ -13,14 +13,14 @@ body {
 .container {
   position: absolute;
   transform: translate(-50%,-50%);
-  top: 50%;
+  top: 75%;
   left: 50%;
   
 }
 
 form {
   background: var(--white);
-  padding: 3em;
+  padding: 2em;
   border-left: 1px solid var(--white);
   border-top: 1px solid var(--white);
   border-left: 1px solid (--white);
@@ -32,6 +32,7 @@ form {
   transition: all 0.2s ease-in-out;
   border-radius: 60px;
   opacity: 0.8;
+
 }
 
   p {
@@ -59,8 +60,8 @@ form {
   
   input {
     background: transparent;
-    width: 200px;
-    padding: 1em;
+    width: 7vw;
+    padding: 0.3em;
     margin: 0em 2em 2em 2em;
     border: none;
     border-left: 1px solid (--white);

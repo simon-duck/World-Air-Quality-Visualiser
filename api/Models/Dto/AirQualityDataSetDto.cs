@@ -85,5 +85,3 @@ public class So2
 {
     public int V { get; set; }
 }
-
-

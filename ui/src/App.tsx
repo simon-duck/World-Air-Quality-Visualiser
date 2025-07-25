@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { TickerTape } from "./components/TickerTape";
+import AqiFiguresDisplay from "./components/AqiFiguresDisplay";
 import { FindDataForNearestStationForm } from "./components/FormComponents/FindDataForNearestStationForm";
 import "./styles/globals.css";
 import "./styles/app.css";
@@ -10,32 +11,17 @@ function App() {
   return (
     <>
    
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-95vh flex flex-col min-w-screen items-center mt-50">
+        <div className="flex"> 
+          <AqiFiguresDisplay />
+        </div>
         <div>
           <FindDataForNearestStationForm />
         </div>
-        {/* <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p> */}
-
-        {/* Bottom Ticker Tape */}
-
-        <div className="mt auto">
+</div>
           <TickerTape />
-        </div>
-      </div>
+        
+      
     </>
 
   );

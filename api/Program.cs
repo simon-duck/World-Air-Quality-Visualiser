@@ -4,9 +4,24 @@ using api.Models.Database;
 using api.Repositories;
 using dotenv.net;
 
-
+var  AllowSpecificOrigins = "_AllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    if (builder.Environment.IsDevelopment())
+    {
+        options.AddPolicy(name: AllowSpecificOrigins, policy =>
+        {
+            policy
+                .WithOrigins("http://localhost:5173")
+                .AllowAnyMethod()
+                .AllowCredentials()
+                .AllowAnyHeader();
+        });
+    }
+});
 
 DotEnv.Load();
 
@@ -47,6 +62,7 @@ using (var serviceScope = app.Services.CreateScope())
         app.UseSwaggerUI();
     }
 
+    app.UseCors(AllowSpecificOrigins);
     app.UseHttpsRedirection();
 
     app.UseAuthorization();
