@@ -20,20 +20,20 @@ export function FindDataForNearestStationForm(): JSX.Element {
   } = useForm<FormData>({ defaultValues: { Longitude: 0, Latitude: 0 } });
   const onSubmit = (data: FormData): void => console.log(data);
   console.log(errors);
-  const [position, setPosition] = useState<[number, number]>([0, 0]);
+  const [position, setPosition] = useState<[number, number]>([16.766587, 0]);
 
   return (
     <div>
      <div className="map-container">
         <MapContainer
-          center={{ lat: 51.553124, lng: -0.142594 }}
+          center={{ lat: 16.7665887, lng: -3.0025615 }}
           maxBounds={[
             [-90, -180],
             [90, 180],
           ]}
           maxBoundsViscosity={1}
           minZoom={2.5
-            
+
           }
           zoom={1}
           scrollWheelZoom={true}>
