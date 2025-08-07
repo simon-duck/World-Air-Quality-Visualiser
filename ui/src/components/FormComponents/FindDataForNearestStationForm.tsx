@@ -6,11 +6,13 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import { latLng, LatLng } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
+
+
 export function FindDataForNearestStationForm(): JSX.Element {
   interface FormData {
     Longitude: number;
     Latitude: number;
-  }
+  };
 
   const {
     register,
@@ -20,10 +22,16 @@ export function FindDataForNearestStationForm(): JSX.Element {
   } = useForm<FormData>({ defaultValues: { Longitude: 0, Latitude: 0 } });
   const onSubmit = (data: FormData): void => console.log(data);
   console.log(errors);
-  const [position, setPosition] = useState<[number, number]>([16.766587, 0]);
+  const [position, setPosition] = useState<[number, number]>([16.766587, -3.0025615]);
+  const [mapVisible, setMapVisible] = useState(false);
+
+const toggleMap = () => {
+    setMapVisible(!mapVisible);
+  }
 
   return (
     <div>
+      {mapVisible && (
      <div className="map-container">
         <MapContainer
           center={{ lat: 16.7665887, lng: -3.0025615 }}
@@ -38,6 +46,7 @@ export function FindDataForNearestStationForm(): JSX.Element {
           zoom={1}
           scrollWheelZoom={true}>
           <TileLayer
+          id="tileLayer"
           noWrap={true}
           bounds={[[-90, -180],
             [90, 180]]}
@@ -50,7 +59,7 @@ export function FindDataForNearestStationForm(): JSX.Element {
             setValue={setValue}
           />
         </MapContainer>
-      </div>
+      </div>)}
     <div className="container">
       
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -87,10 +96,12 @@ export function FindDataForNearestStationForm(): JSX.Element {
         </div>
         <p>
           <input className="font-medium" type="submit" />
-        </p>
+          <button className="map-button" type="button" onClick={toggleMap}> {mapVisible ? 'Hide Map' : 'Show Map'}</button>
+          </p>
       </form>
      
     </div>
+    
     </div>
   );
 }

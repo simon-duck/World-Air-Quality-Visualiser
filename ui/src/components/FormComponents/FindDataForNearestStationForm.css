@@ -132,3 +132,26 @@ form {
   left:20vw;
   z-index: 25;
 }
+
+.map-button {
+      margin-top: 10px;
+      font-weight:500;
+      width: 200px;
+      font-size: 1rem;
+      background: #fff204;
+      color: #000000;
+      opacity: 1;
+      padding: 0.3em;
+      margin: 0em 2em 2em 2em;
+      border: none;
+      border-left: 1px solid (--white);
+      border-top: 1px solid (--white);
+      border-radius: 5000px;
+      backdrop-filter: blur(5px);
+      box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
+      color: #000000;
+      font-weight: 500;
+      transition: all 0.2s ease-in-out;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      opacity: 1;
+}
