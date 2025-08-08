@@ -7,26 +7,41 @@ import { latLng, LatLng } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./FindDataForNearestStationForm.css";
 
-
-export function FindDataForNearestStationForm(): JSX.Element {
-  interface FormData {
+ export interface LongLat {
+    Longitude: number;
+    Latitude: number;
+  }
+export interface FindDataForNearestStationFormProps {
+  currentLongLat: {
     Longitude: number;
     Latitude: number;
   };
+  onCoordinatesChange?: (coordinates: LongLat) => void; 
+}
+
+export function FindDataForNearestStationForm({ 
+  currentLongLat, 
+  onCoordinatesChange 
+}: FindDataForNearestStationFormProps): JSX.Element {
 
   const {
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
-  } = useForm<FormData>({ defaultValues: { Longitude: 0, Latitude: 0 } });
-  const onSubmit = (data: FormData): void => console.log(data);
-  console.log(errors);
+  } = useForm<LongLat>({ defaultValues: { Longitude: 0, Latitude: 0 } });
+
   const [position, setPosition] = useState<[number, number]>([16.766587, -3.0025615]);
   const [mapVisible, setMapVisible] = useState(false);
 
+
 const toggleMap = () => {
     setMapVisible(!mapVisible);
+  }
+
+  function submitForm(data: LongLat) {
+    if (onCoordinatesChange) {
+      onCoordinatesChange(data);
+    }
   }
 
   return (
@@ -64,7 +79,7 @@ const toggleMap = () => {
       </AnimatePresence>
     <div className="container">
       
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(submitForm)}>
         <p className="font-medium">
           Click Map to select location
         </p>
@@ -100,6 +115,9 @@ const toggleMap = () => {
           <input className="font-medium" type="submit" />
           <button className="map-button" type="button" onClick={toggleMap}> {mapVisible ? 'Hide Map' : 'Show Map'}</button>
           </p>
+         {currentLongLat && currentLongLat.Latitude !== undefined && currentLongLat.Longitude !== undefined && (
+            <p>Current Location: {currentLongLat.Latitude.toFixed(4)}, {currentLongLat.Longitude.toFixed(4)}</p>
+          )}
       </form>
      
     </div>
