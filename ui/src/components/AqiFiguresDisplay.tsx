@@ -10,7 +10,7 @@ const AqiFigures:React.FC = () => {
     useEffect(() => {
         const fetchAqiData = async () => {
             try {
-                const data = await getAqiFiguresByLatLon(45, 56);
+                const data = await getAqiFiguresByLatLon(-19, 23);
                 setAqiForClosestStation(data);
             } catch (error) {
                 console.error('Error fetching AQI data:', error);
