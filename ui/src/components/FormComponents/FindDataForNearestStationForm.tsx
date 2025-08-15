@@ -42,7 +42,7 @@ const toggleMap = () => {
     if (onCoordinatesChange) {
       onCoordinatesChange(data);
     }
-    toggleMap();
+    if (mapVisible) {toggleMap()};
 
   }
 

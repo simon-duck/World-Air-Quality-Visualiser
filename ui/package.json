@@ -10,7 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^10.6.1",
+    "@react-three/fiber": "^9.3.0",
     "@tailwindcss/vite": "^4.1.11",
+    "@types/three": "^0.179.0",
     "leaflet": "^1.9.4",
     "motion": "^12.23.6",
     "react": "^19.1.1",
@@ -18,7 +21,8 @@
     "react-hook-form": "^7.61.1",
     "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.8.0",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "three": "^0.179.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
