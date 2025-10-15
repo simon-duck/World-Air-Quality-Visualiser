@@ -1,8 +1,9 @@
-import { PerspectiveCamera, OrbitControls, Edges } from "@react-three/drei";
+import { PerspectiveCamera, OrbitControls, Edges, Clouds, Cloud } from "@react-three/drei";
 import type { Iaqi } from "../../Api/ApiClient";
 import { useEffect, useRef, useState } from "react";
 import { ParticleSystem } from "./ParticleSystems";
 import { Canvas } from '@react-three/fiber'
+import * as THREE from 'three';
 
 interface AirQualityVisualizationProps {
   data: Iaqi;
@@ -66,18 +67,23 @@ export function AqiVisualiser({
 
   return (
     <>
-    <Canvas camera={{ position: cameraPosition, fov: 50 }}>
+    <div style={{ width:"75vw", height: "50vh", border: '1px solid #ffffff', borderRadius: '25px'}}>
+      <Canvas camera={{ position: cameraPosition, fov: 50 }}>
       <ambientLight color={0xffffff} intensity={1} />
       {/* <directionalLight color="white" intensity={0.7} position={[0, 3, 5]} /> */}
-      <OrbitControls enableDamping dampingFactor={0.05} />
+      <OrbitControls enableDamping dampingFactor={0.05} minDistance={0}/>
       <PerspectiveCamera
         makeDefault
         fov={45}
         aspect={aspect}
         near={1}
         far={1000}
-        position={[0, 0, 50]}
+        position={[0, 0, 100]}
       />
+      <mesh><Clouds material={THREE.MeshLambertMaterial}>
+  <Cloud segments={40} bounds={[10, 2, 2]} volume={10} color="white" position={[10,10,14]} />
+  <Cloud seed={1} scale={2} volume={5} color="grey" fade={100} position={[10,10,14]} />
+</Clouds></mesh>
       <mesh rotation={[0.3, 0, 0]}>
         <boxGeometry args={[65, 20, 25]} />
 
@@ -110,9 +116,10 @@ export function AqiVisualiser({
             />
           );
         })}
-        <mesh></mesh>
+        
       </mesh>
       </Canvas>
+      </div>
     </>
   );
 }

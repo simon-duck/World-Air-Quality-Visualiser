@@ -41,14 +41,19 @@ const HomePage = () => {
     return (
         
              <>
-               
-      <div className="min-h-95vh flex flex-col min-w-screen items-center rounded-sm">
-        <div id="canvas-container" className="h-150 w-500 mt-50">
-          <AqiVisualiser data={aqiForClosestStation?.data?.iaqi || fallbackIaqi} enabledSystems={enabledSystems}/>
-          </div>
-        <div className="flex mt-30 absolute">
+             
+             <div className = "flex justify-between w-screen">
+               <img src="High-Resolution-Color-Logo-on-Transparent-Background_edited.png" className="object-scale-down h-30"></img>
+
           <AqiFiguresDisplay currentLongLat={currentLongLat} aqiForClosestStation={aqiForClosestStation} onAqiChange={setAqiForClosestStation}/>
+          
         </div>
+      <div className="min-h-95vh flex flex-col min-w-screen items-center">
+        
+        
+          <AqiVisualiser data={aqiForClosestStation?.data?.iaqi || fallbackIaqi} enabledSystems={enabledSystems}/>
+
+        
       
         <FindDataForNearestStationForm currentLongLat={currentLongLat} onCoordinatesChange={setCurrentLongLat} />
       </div>
