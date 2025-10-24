@@ -306,7 +306,7 @@ export function AqiVisualiser({
   const getParticleCount = (value: number) => {
     // Scale the particle count based on the value
     // Proportionally map AQI values from 0-500 to 0-250 particles
-    return Math.max(0, Math.min(250, Math.round(value * 100)));
+    return Math.max(0, Math.min(800, Math.round(value * 10)));
   };
 
   return (
