@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getAqiFiguresByLatLon } from "../Api/ApiClient";
 import type { AirQualityDataSetDto } from "../Api/ApiClient";
 import "./AqiFiguresDisplay.css";
 import { type LongLat } from "../components/FormComponents/FindDataForNearestStationForm";
+import { getCurrentTimeForLocation } from "../utils/timeUtils";
 
 interface AqiFiguresDisplayProps {
   currentLongLat: LongLat;
@@ -15,7 +16,8 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
   aqiForClosestStation,
   onAqiChange 
 }) => {
- 
+  const [currentTime, setCurrentTime] = useState<string>('');
+
 console.log(currentLongLat)
 
   useEffect(() => {
@@ -31,11 +33,35 @@ console.log(currentLongLat)
    fetchAqiData();
   }, [currentLongLat.Latitude, currentLongLat.Longitude, onAqiChange]);
 
+  // Update current time when location changes and every minute
+  useEffect(() => {
+    const updateTime = async () => {
+      const timeStr = await getCurrentTimeForLocation(currentLongLat.Latitude, currentLongLat.Longitude);
+      setCurrentTime(timeStr || '');
+    };
+
+    // Update immediately
+    updateTime();
+    
+    // Update every minute
+    const interval = setInterval(updateTime, 60000);
+    
+    return () => clearInterval(interval);
+  }, [currentLongLat.Latitude, currentLongLat.Longitude]);
+
   return (
     <div className="aqi bg-white p-4 flex flex-col w-200 rounded-md space-y-2 m-5">
-      <div className="flex flex-row">
-      <h3 className="font-bold text-lg mb-2">Air Quality Data</h3> 
-      <p><strong>Location:</strong> {aqiForClosestStation?.data?.city?.name || 'Unknown'}</p>
+      <div className="flex flex-row justify-between items-center">
+        <div>
+          <h3 className="font-bold text-lg mb-2">Air Quality Data</h3> 
+          <p><strong>Location:</strong> {aqiForClosestStation?.data?.city?.name || 'Unknown'}</p>
+        </div>
+        {currentTime && (
+          <div className="text-right">
+            <p className="text-sm text-gray-600">Local Time</p>
+            <p className="font-mono text-lg">{currentTime}</p>
+          </div>
+        )}
       </div>
       <div className="grid grid-cols-4 gap-4">
         <div className="">

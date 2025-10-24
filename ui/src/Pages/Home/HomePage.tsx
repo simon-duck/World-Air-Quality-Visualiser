@@ -19,12 +19,12 @@ const HomePage = () => {
     so2: true,
   });
 
-  const handleToggleSystem = (key: string) => {
-    setEnabledSystems((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
-  };
+  // const handleToggleSystem = (key: string) => {
+  //   setEnabledSystems((prev) => ({
+  //     ...prev,
+  //     [key]: !prev[key],
+  //   }));
+  // };
 
   // Fallback iaqi data with zero values
   const fallbackIaqi: Iaqi = {
@@ -36,7 +36,7 @@ const HomePage = () => {
     so2: { v: 0 },
   };
 
-  const [currentLongLat, setCurrentLongLat] = useState<LongLat>({Longitude: 51.5072,Latitude: 0.1276});    
+  const [currentLongLat, setCurrentLongLat] = useState<LongLat>({Longitude: -0.1276, Latitude: 51.5072});    
     const [aqiForClosestStation, setAqiForClosestStation] = useState<AirQualityDataSetDto | null>(null);
     return (
         
@@ -51,7 +51,12 @@ const HomePage = () => {
       <div className="min-h-95vh flex flex-col min-w-screen items-center">
         
         
-          <AqiVisualiser data={aqiForClosestStation?.data?.iaqi || fallbackIaqi} enabledSystems={enabledSystems}/>
+          <AqiVisualiser 
+            data={aqiForClosestStation?.data?.iaqi || fallbackIaqi} 
+            enabledSystems={enabledSystems}
+            longitude={currentLongLat.Longitude}
+            latitude={currentLongLat.Latitude}
+          />
 
         
       
