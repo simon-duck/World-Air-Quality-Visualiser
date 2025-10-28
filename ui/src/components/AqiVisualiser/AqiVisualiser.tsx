@@ -69,7 +69,7 @@ export function AqiVisualiser({
         } else if (minDimension < 1200) {
           zoomDistance = 150; // Small screens
         } else {
-          zoomDistance = 120; // Medium screens in portrait
+          zoomDistance = 100; // Medium screens in portrait
         }
       } else {
         // For desktop landscape, adjust zoom based on width
