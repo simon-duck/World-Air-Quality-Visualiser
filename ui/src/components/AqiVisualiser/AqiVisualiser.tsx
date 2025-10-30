@@ -36,6 +36,17 @@ export function AqiVisualiser({
     [number, number, number]
   >([0, 0, 65]);
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Hide loading after components are initialized
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500); // Give time for Three.js to initialize
+
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     const updateCameraPosition = () => {
       const windowWidth = window.innerWidth;
@@ -119,22 +130,78 @@ export function AqiVisualiser({
 
   return (
     <>
-      <div
-        style={{
-          width: "75vw",
-          height: "50vh",
-          border: "5px solid #ffffff",
-          borderRadius: "25px",
-        }}>
-        <Canvas
-          gl={{ 
-            antialias: false,
-            alpha: false,
-            powerPreference: "high-performance"
-          }}
-          dpr={[1, 1.5]}
-          performance={{ min: 0.8 }}
-        >
+      <div style={{ position: 'relative' }}>
+        {/* Loading overlay */}
+        {isLoading && (
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: "75vw",
+              height: "50vh",
+              border: "5px solid #ffffff",
+              borderRadius: "25px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "rgba(248, 249, 250, 0.95)",
+              zIndex: 1000,
+              backdropFilter: "blur(2px)"
+            }}
+          >
+            <div
+              style={{
+                width: "60px",
+                height: "60px",
+                border: "4px solid #e9ecef",
+                borderTop: "4px solid #007bff",
+                borderRadius: "50%",
+                animation: "spin 1s linear infinite",
+                marginBottom: "20px",
+              }}
+            />
+            <h3 style={{
+              color: "#495057",
+              fontSize: "18px",
+              fontWeight: "600",
+              margin: "0 0 8px 0"
+            }}>
+              Loading 3D Visualization
+            </h3>
+            <p style={{
+              color: "#6c757d",
+              fontSize: "14px",
+              margin: 0
+            }}>
+              Preparing environment...
+            </p>
+            <style>{`
+              @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+              }
+            `}</style>
+          </div>
+        )}
+
+        <div
+          style={{
+            width: "75vw",
+            height: "50vh",
+            border: "5px solid #ffffff",
+            borderRadius: "25px",
+          }}>
+          <Canvas
+            gl={{ 
+              antialias: false,
+              alpha: false,
+              powerPreference: "high-performance"
+            }}
+            dpr={[1, 1.5]}
+            performance={{ min: 0.8 }}
+          >
           <fog attach="fog" args={[0xcccccc, 200, 500]} />
           <Sun longitude={longitude} latitude={latitude} />
           <ambientLight color={0xffffff} intensity={0.3} />
@@ -228,7 +295,8 @@ export function AqiVisualiser({
               );
             })}
           </mesh>
-        </Canvas>
+          </Canvas>
+        </div>
       </div>
     </>
   );
