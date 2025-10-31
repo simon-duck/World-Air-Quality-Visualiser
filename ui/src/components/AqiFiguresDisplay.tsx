@@ -145,7 +145,6 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
        {/* Only show particle controls when location is selected */}
        {currentLongLat.Latitude !== 0 || currentLongLat.Longitude !== 0 ? (
          <div>
-           <h4 className="text-md font-semibold text-gray-700 mb-4">Particle System Controls</h4>
            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4">
              {PARTICLE_CONFIGS.map((config: typeof PARTICLE_CONFIGS[0]) => {
               // Handle AQI differently since it's not in iaqi
