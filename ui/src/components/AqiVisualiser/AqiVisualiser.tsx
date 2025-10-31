@@ -299,8 +299,4 @@ export function AqiVisualiser({
       </div>
     </>
   );
-<<<<<<< HEAD
 };
-=======
-}
->>>>>>> 82afdbc
