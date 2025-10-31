@@ -114,33 +114,39 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
   //   </ Card>
 
     <Card className="p-4 md:p-6 max-w-7xl mx-auto w-full">
-      <h3 className="font-bold text-lg mb-2">Air Quality Data</h3> 
+      <h3 className="font-bold text-lg">Air Quality Data</h3> 
       
       {/* Show message when no location is selected */}
       {currentLongLat.Latitude === 0 && currentLongLat.Longitude === 0 ? (
-        <div className="text-center py-8 text-gray-500">
-          <p className="text-lg mb-2">📍 No location selected</p>
+        <div className="text-center py-4 text-gray-500">
+          <p className="text-lg">📍 No location selected</p>
           <p>Click on the map below or enter coordinates to view air quality data</p>
         </div>
       ) : (
         <>
-          <div>
-             <p><strong>Location:</strong> {aqiForClosestStation?.data?.city?.name || 'Loading...'}</p>
+          {/* Header section with location and time */}
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b">
+            <div>
+              <p className="text-lg font-semibold text-gray-800">
+                <span className="text-gray-600">Location:</span> {aqiForClosestStation?.data?.city?.name || 'Loading...'}
+              </p>
+            </div>
+            
+            {currentTime && (
+              <div className="text-left sm:text-right mt-2 sm:mt-0">
+                <p className="text-sm text-gray-600">Local Time</p>
+                <p className="font-mono text-lg font-semibold text-gray-800">{currentTime}</p>
+              </div>
+            )}
           </div>
-          
-           {currentTime && (
-             <div className="text-right">
-               <p className="text-sm text-gray-600">Local Time</p>
-               <p className="font-mono text-lg">{currentTime}</p>
-             </div>
-             
-           )}
         </>
       )}
        
        {/* Only show particle controls when location is selected */}
        {currentLongLat.Latitude !== 0 || currentLongLat.Longitude !== 0 ? (
-         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 md:gap-4">
+         <div>
+           <h4 className="text-md font-semibold text-gray-700 mb-4">Particle System Controls</h4>
+           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4">
              {PARTICLE_CONFIGS.map((config: typeof PARTICLE_CONFIGS[0]) => {
               // Handle AQI differently since it's not in iaqi
               let pollutantData;
@@ -157,16 +163,16 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
               return (
                 <div
                   key={config.key}
-                  className={`flex flex-row sm:flex-col gap-3 sm:gap-2 p-3 rounded-lg border items-center sm:items-start ${!isAvailable ? 'opacity-50' : ''}`}
+                  className={`flex flex-col gap-2 p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${!isAvailable ? 'opacity-50' : ''}`}
                   style={{
                     backgroundColor: isAvailable ? `${config.color}15` : 'transparent',
                     borderColor: isAvailable ? config.color : 'var(--border)',
                   }}
                 >
-                  <div className="flex items-center justify-between flex-1 sm:w-full">
+                  <div className="flex items-center justify-between w-full">
                     <Label
                       htmlFor={config.key}
-                      className="cursor-pointer"
+                      className="cursor-pointer font-semibold"
                       style={{ color: isAvailable ? config.color : 'inherit' }}
                     >
                       {config.label}
@@ -178,17 +184,18 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
                       disabled={!isAvailable} />
                   </div>
                   {isAvailable && pollutantData && (
-                    <div className="text-sm text-muted-foreground whitespace-nowrap sm:whitespace-normal">
-                      Value: {pollutantData.v}
+                    <div className="text-lg font-bold text-gray-800">
+                      {pollutantData.v}
                     </div>
                   )}
                   {!isAvailable && (
-                    <div className="text-sm text-muted-foreground">No data</div>
+                    <div className="text-sm text-muted-foreground italic">No data available</div>
                   )}
                 </div>
               );
             })}
-          </div>
+           </div>
+         </div>
        ) : null}
     </Card>
 

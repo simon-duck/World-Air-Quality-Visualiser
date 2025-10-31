@@ -20,7 +20,6 @@ const HomePage = () => {
     so2: false,
   });
 
-  // Fallback iaqi data with zero values
   const fallbackIaqi: Iaqi = {
     co: { v: 0 },
     co2: { v: 0 },
@@ -36,43 +35,48 @@ const HomePage = () => {
     return (
         
              <>
-             
-             <div className = "flex justify-between w-screen">
-               <img src="High-Resolution-Color-Logo-on-Transparent-Background_edited.png" className="object-scale-down h-30"></img>
 
-          <AqiFiguresDisplay 
-            currentLongLat={currentLongLat} 
-            aqiForClosestStation={aqiForClosestStation} 
-            enabledSystems={enabledSystems}
-            onAqiChange={setAqiForClosestStation}
-            onToggleSystem={(key: string) => {
-              setEnabledSystems(prev => ({
-                ...prev,
-                [key]: !prev[key]
-              }));
-            }}
-          />
-          
-        </div>
-      <div className="min-h-95vh flex flex-col min-w-screen items-center">
-        
-        
-          <AqiVisualiser 
-            data={aqiForClosestStation?.data?.iaqi || fallbackIaqi} 
-            overallAqi={aqiForClosestStation?.data?.aqi}
-            enabledSystems={enabledSystems}
-            longitude={currentLongLat.Longitude}
-            latitude={currentLongLat.Latitude}
-          />
+             <div className="flex w-screen mb-4 portrait:flex-col portrait:items-center ">
+               <img src="High-Resolution-Color-Logo-on-Transparent-Background_edited.png" className="object-contain w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-auto portrait:mx-auto 3xl:absolute"></img>
+            <div className="w-full max-w-4xl px-4 mt-5 mx-auto">
+                 <FindDataForNearestStationForm currentLongLat={currentLongLat} onCoordinatesChange={setCurrentLongLat} />
+               </div> 
+               </div>
 
-        
-      <FindDataForNearestStationForm currentLongLat={currentLongLat} onCoordinatesChange={setCurrentLongLat} />
-        
-      </div>
-      <TickerTape />
-    </>
 
-        
+
+             <div className="min-h-95vh flex flex-col min-w-screen items-center space-y-6">
+               
+
+               <div className="flex justify-center">
+                 <AqiVisualiser 
+                   data={aqiForClosestStation?.data?.iaqi || fallbackIaqi} 
+                   overallAqi={aqiForClosestStation?.data?.aqi}
+                   enabledSystems={enabledSystems}
+                   longitude={currentLongLat.Longitude}
+                   latitude={currentLongLat.Latitude}
+                 />
+               </div>
+
+
+               <div className="w-full max-w-6xl px-4">
+                 <AqiFiguresDisplay 
+                   currentLongLat={currentLongLat} 
+                   aqiForClosestStation={aqiForClosestStation} 
+                   enabledSystems={enabledSystems}
+                   onAqiChange={setAqiForClosestStation}
+                   onToggleSystem={(key: string) => {
+                     setEnabledSystems(prev => ({
+                       ...prev,
+                       [key]: !prev[key]
+                     }));
+                   }}
+                 />
+               </div>
+               
+             </div>
+             <TickerTape />
+           </>
         );
 }
 export default HomePage;

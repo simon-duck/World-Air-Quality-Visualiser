@@ -20,7 +20,6 @@ export interface FindDataForNearestStationFormProps {
 }
 
 export function FindDataForNearestStationForm({ 
-  currentLongLat, 
   onCoordinatesChange 
 }: FindDataForNearestStationFormProps): JSX.Element {
 
@@ -33,9 +32,7 @@ export function FindDataForNearestStationForm({
   const [position, setPosition] = useState<[number, number]>([16.766587, -3.0025615]);
   const [mapVisible, setMapVisible] = useState(false);
 
-  // Coordinates only change when "Show Data" button is clicked
-
-const toggleMap = () => {
+  const toggleMap = () => {
     setMapVisible(!mapVisible);
   }
 
@@ -43,8 +40,25 @@ const toggleMap = () => {
     if (onCoordinatesChange) {
       onCoordinatesChange(data);
     }
-    if (mapVisible) {toggleMap()};
+    // Map visibility is now only controlled by the toggle button
+  }
 
+  // Auto-submit when map position changes
+  const handleMapPositionChange = (pos: LatLng) => {
+    setPosition([pos.lat, pos.lng]);
+    
+    // Create the data object and submit immediately
+    const formData: LongLat = {
+      Latitude: parseFloat(pos.lat.toFixed(5)),
+      Longitude: parseFloat(pos.lng.toFixed(5))
+    };
+    
+    // Submit the form automatically
+    if (onCoordinatesChange) {
+      onCoordinatesChange(formData);
+    }
+    
+    // Map remains visible - user must click "Hide Map" to close it
   }
 
   return (
@@ -74,55 +88,72 @@ const toggleMap = () => {
           />{" "}
           <LocationMarkerMap
             position={latLng(position[0], position[1])}
-            setPosition={(pos: LatLng) => setPosition([pos.lat, pos.lng])}
+            setPosition={handleMapPositionChange}
             setValue={setValue}
           />
         </MapContainer>
       </motion.div>)}
       </AnimatePresence>
-    <div className="container">
-      
+    <div className="bg-white rounded-lg shadow-sm border p-2 mb-5 mx-auto">
       <form onSubmit={handleSubmit(submitForm)}>
-        <p className="font-medium">
-          Click Map to select location
-        </p>
+        
 
-        <div></div>
-        <div className="flex flex-row justify-center">
-          <div className="flex flex-col justify-center self-center">
-            <p className="">Longitude</p>
-            <input
-              className="font-medium align-items-center"
-              type="text"
-              placeholder="Longitude"
-              {...register("Longitude", {
-                required: true,
-                pattern: /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/i,
-              })}
-            />
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex-1">
+            <p className="font-medium text-gray-700 mb-2">Click on the map to select location and view air quality data</p>
+            
+
+            <div className="flex gap-3">
+              <div className="flex-1">
+                <label className=" text-sm text-gray-600 mb-1 hidden">Latitude</label>
+                <input
+                  className="w-full px-3 py-2 border rounded-md hidden text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  type="text"
+                  placeholder="0.0000"
+                  {...register("Latitude", {
+                    required: true,
+                    pattern: /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/i,
+                  })}
+                />
+              </div>
+              <div className="flex-1">
+                <label className=" text-sm text-gray-600 mb-1 hidden">Longitude</label>
+                <input
+                  className="hidden w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  type="text"
+                  placeholder="0.0000"
+                  {...register("Longitude", {
+                    required: true,
+                    pattern: /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/i,
+                  })}
+                />
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col justify-self-center">
-            <p className=" m-1px">Latitude</p>
-            <input
-              className="font-medium"
-              type="text"
-              placeholder="Latitude"
-              {...register("Latitude", {
-                required: true,
-                pattern: /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/i,
-              })}
-            />
+          
+          {/* Action button */}
+          <div className="flex gap-2 sm:w-auto w-full">
+            <button 
+              className={`px-4 py-2 text-white rounded-md text-sm font-medium flex-1 sm:flex-none sm:w-32 ${
+                mapVisible 
+                  ? 'bg-red-600 hover:bg-red-700' 
+                  : 'bg-blue-600 hover:bg-blue-700'
+              }`}
+              type="button" 
+              onClick={toggleMap}
+            > 
+              {mapVisible ? 'Hide Map' : 'Show Map'}
+            </button>
           </div>
         </div>
-        <p>
-          {mapVisible && <input className="font-medium" type="submit" value="Show Data" />}
-          <button className="map-button" type="button" onClick={toggleMap}> {mapVisible ? 'Hide Map' : 'Show Map'}</button>
-          </p>
-         {currentLongLat && currentLongLat.Latitude !== undefined && currentLongLat.Longitude !== undefined && (
-            <p>Current Location: {currentLongLat.Latitude.toFixed(4)}, {currentLongLat.Longitude.toFixed(4)}</p>
-          )}
+
+{/* 
+        {currentLongLat && currentLongLat.Latitude !== 0 && currentLongLat.Longitude !== 0 && (
+          <div className="text-sm text-gray-600 bg-gray-50 p-2 rounded">
+            <strong>Current Location:</strong> {currentLongLat.Latitude.toFixed(4)}, {currentLongLat.Longitude.toFixed(4)}
+          </div>
+        )} */}
       </form>
-     
     </div>
     
     </div>

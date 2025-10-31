@@ -43,10 +43,10 @@ export const CloudPattern = memo(function CloudPattern() {
       initialX: Math.random() * initialCanvasWidth - initialCanvasWidth / 2, // Random X across canvas width
       initialY: Math.random() * 60 + 10, // Random Y between 10 and 70
       initialZ: Math.random() * (maxSafeZ - minSafeZ) + minSafeZ, // Random Z based on canvas width, safe from camera/fog
-      speed: Math.random() * 9 + 1, // Random speed between 1 and 10
+      speed: Math.random() * 9 + 1, 
       seed: index + 1,
       scale: (Math.random() * 1.5 + 0.8) * 2,
-      volume: Math.random() * 8 + 5, // Random volume between 5 and 13
+      volume: Math.random() * 8 + 5,
       color: (() => {
         const rand = Math.random();
         if (rand > 0.6) return "white";
