@@ -300,4 +300,4 @@ console.log("zoom" + zoomDistance);
       </div>
     </>
   );
-}
+};
