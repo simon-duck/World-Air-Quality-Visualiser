@@ -54,12 +54,12 @@ const HomePage = () => {
     
   return (
     <>
-      <div className="flex w-screen mb-4 portrait:flex-col portrait:items-center ">
+      <div className="flex w-screen mb-0 md:mb-4 portrait:flex-col portrait:items-center ">
         <img
           src="High-Resolution-Color-Logo-on-Transparent-Background_edited.png"
-          className="object-contain w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-auto portrait:mx-auto 3xl:absolute"
+          className="object-contain w-full max-w-xs lg:max-w-lg xl:max-w-xl xl:h-auto portrait:mx-auto 3xl:absolute"
         ></img>
-        <div className="w-full max-w-4xl px-4 mt-5 mx-auto">
+        <div className="w-full max-w-4xl px-4 mt-2 md:mt-5 mx-auto">
           <FindDataForNearestStationForm
             currentLongLat={currentLongLat}
             onCoordinatesChange={setCurrentLongLat}

@@ -44,7 +44,7 @@ export function TickerTape() {
   const duplicatedData = [...mockCityData, ...mockCityData];
 
   return (
-    <div className="w-full bg-muted border-t overflow-hidden py-2 fixed bottom-0">
+    <div className="w-full bg-muted border-t overflow-hidden py-1 lg:py-2 fixed bottom-0">
         <motion.div
           className="flex gap-8 whitespace-nowrap"
           animate={{
@@ -58,12 +58,12 @@ export function TickerTape() {
           {duplicatedData.map((city, index) => (
             <div
               key={`${city.city}-${index}`}
-              className="flex items-center gap-3 px-4 py-1 rounded-full bg-background shadow-sm min-w-fit">
-              <span className="text-sm font-medium">
+              className="flex items-center gap-3 px-4 py-0.5 rounded-full bg-background shadow-sm min-w-fit">
+              <span className="text-xs lg:text-sm font-medium">
                 {city.city}, {city.country}
               </span>
               <span
-                className={`text-xs px-2 py-1 rounded-full ${getAQIBg(
+                className={`text-xs px-2 py-0.3 lg:py-1 rounded-full ${getAQIBg(
                   city.aqi
                 )} ${getAQIColor(city.aqi)} font-medium`}>
                 AQI {city.aqi}

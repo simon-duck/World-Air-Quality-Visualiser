@@ -95,27 +95,42 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
 
 
     <Card className="p-4 md:p-3 max-w-7xl mx-auto w-full">
-      <h3 className="font-bold text-lg ml-2">AQI Data</h3> 
+      {/* Header: Title, Location, and Time - combined on small landscape screens */}
+      <div className="flex flex-col small-landscape-inline-header">
+        <h3 className="font-bold text-sm sm:text-md lg:text-lg ml-2 small-landscape-header-text">AQI Data</h3>
+        
+        {/* Location and time - shown inline on small landscape screens */}
+        {currentLongLat.Latitude !== 0 && currentLongLat.Longitude !== 0 && (
+          <div className="hidden small-landscape-compact items-center gap-4 text-xs">
+            <div className="font-medium text-gray-700">
+              <span className="text-gray-600">Location:</span> {aqiForClosestStation?.data?.city?.name || 'Loading...'}
+            </div>
+            {currentTime && (
+              <div className="font-medium text-gray-700">Local Time: {currentTime}</div>
+            )}
+          </div>
+        )}
+      </div>
       
       {/* Show message when no location is selected */}
       {currentLongLat.Latitude === 0 && currentLongLat.Longitude === 0 ? (
         <div className="text-center py-4 text-gray-500">
-          <p className="text-lg">📍 No location selected</p>
-          <p>Choose location with the map to view air quality data</p>
+          <div className="text-xs sm:text-sm md:text-base lg:text-lg">📍 No location selected</div>
+          <div className="text-xs sm:text-sm md:text-base lg:text-lg">Choose location with the map to view air quality data</div>
         </div>
       ) : (
         <>
-          {/* Header section with location and time */}
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b portrait:gap-0.5 portrait:pb-1">
+          {/* Header section with location and time - hidden on small landscape screens */}
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b portrait:gap-0.5 portrait:pb-1 small-landscape-hidden">
             <div>
-              <p className="text-lg portrait:text-sm font-medium text-gray-700">
+              <div className="text-xs sm:text-sm md:text-base lg:text-lg portrait:text-xs font-medium text-gray-700">
                 <span className="text-gray-600">Location:</span> {aqiForClosestStation?.data?.city?.name || 'Loading...'}
-              </p>
+              </div>
             </div>
             
             {currentTime && (
               <div className="text-left sm:text-right mt-2 portrait:mt-0 sm:mt-0">  
-                <p className="text-sm portrait:text-xs font-medium text-gray-700">Local Time: {currentTime}</p>
+                <div className="text-xs sm:text-sm md:text-base lg:text-lg portrait:text-xs font-medium text-gray-700">Local Time: {currentTime}</div>
               </div>
             )}
           </div>
@@ -125,7 +140,7 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
        {/* Only show particle controls when location is selected */}
        {currentLongLat.Latitude !== 0 || currentLongLat.Longitude !== 0 ? (
          <div>
-           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4">
+           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4 small-landscape-grid">
              {PARTICLE_CONFIGS.map((config: typeof PARTICLE_CONFIGS[0]) => {
               // Handle AQI differently since it's not in iaqi
               let pollutantData;
@@ -142,21 +157,21 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
               return (
                 <div
                   key={config.key}
-                  className={`flex flex-col md:flex-col md:min-h-[140px] gap-2 p-4 md:p-4 portrait:p-2 portrait:flex-row portrait:items-center portrait:gap-2 portrait:min-h-0 rounded-lg border transition-all duration-200 hover:shadow-md ${!isAvailable ? 'opacity-50' : ''}`}
+                  className={`flex flex-col md:flex-col md:min-h-[140px] gap-2 p-4 md:p-4 portrait:p-2 portrait:flex-row portrait:items-center portrait:gap-2 portrait:min-h-0 small-landscape-card rounded-lg border transition-all duration-200 hover:shadow-md ${!isAvailable ? 'opacity-50' : ''}`}
                   style={{
                     backgroundColor: isAvailable ? `${config.color}15` : 'transparent',
                     borderColor: isAvailable ? config.color : 'var(--border)',
                   }}
                 >
-                  {/* Desktop: Label on top, mobile: Label on left with fixed width */}
-                  <div className="flex items-center justify-between w-full md:flex-row portrait:w-20 portrait:shrink-0 portrait:justify-start">
-                    <div className="portrait:w-full portrait:overflow-hidden portrait:relative portrait:h-[18px]">
+                  {/* Desktop: Label on top, mobile/small landscape: Label on left with fixed width */}
+                  <div className="flex items-center justify-between w-full md:flex-row portrait:w-20 portrait:shrink-0 portrait:justify-start small-landscape-label-container">
+                    <div className="portrait:w-full portrait:overflow-hidden portrait:relative portrait:h-[18px] small-landscape-label-text">
                       <Label
                         htmlFor={config.key}
-                        className="cursor-pointer font-semibold portrait:text-xs portrait:whitespace-nowrap"
+                        className="cursor-pointer font-semibold portrait:text-xs portrait:whitespace-nowrap small-landscape-label"
                         style={{ color: '#555555' }}
                       >
-                        <span className="hidden portrait:inline">{config.shortLabel}</span>
+                        <span className="hidden p-1 portrait:inline small-landscape-label">{config.shortLabel}</span>
                         <span className="portrait:hidden">{config.label}</span>
                       </Label>
                     </div>
@@ -166,17 +181,17 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
                       checked={enabledSystems[config.key] && isAvailable}
                       onCheckedChange={() => onToggleSystem(config.key)}
                       disabled={!isAvailable}
-                      className="md:inline-flex portrait:hidden"
+                      className="md:inline-flex portrait:hidden small-landscape-hidden"
                     />
                   </div>
                   
-                  {/* Desktop: Column layout, Mobile: Row layout */}
-                  <div className="flex flex-col portrait:flex-row portrait:items-center gap-2 portrait:gap-1.5 portrait:flex-1">
+                  {/* Desktop: Column layout, Mobile/Small Landscape: Row layout */}
+                  <div className="flex flex-col items-center portrait:flex-row gap-2 portrait:gap-1.5 portrait:flex-1 small-landscape-content">
                     {/* Traffic light and value - row on both desktop and mobile */}
                     <div className="flex items-center gap-3 portrait:gap-1.5">
                       {/* Circular traffic light indicator */}
                       <div
-                        className="shrink-0 rounded-full border w-5 h-5 sm:w-6 sm:h-6 portrait:w-4 portrait:h-4"
+                        className="shrink-0 rounded-full border w-5 h-5 sm:w-6 sm:h-6 portrait:w-4 portrait:h-4 small-landscape-traffic-light"
                         style={{
                           backgroundColor: isAvailable && pollutantData 
                             ? getAirQualityLevel(pollutantData.v).color 
@@ -191,33 +206,33 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
                       
                       {/* Value - fixed width on mobile */}
                       {isAvailable && pollutantData ? (
-                        <div className="text-lg portrait:text-sm font-bold text-gray-800 portrait:w-[35px] portrait:shrink-0 portrait:text-right">
+                        <div className="text-lg portrait:text-sm flex items-center font-bold text-gray-800 portrait:w-[35px] portrait:shrink-0 portrait:text-right small-landscape-value">
                           {pollutantData.v}
                         </div>
                       ) : (
-                        <div className="text-sm portrait:text-xs text-muted-foreground italic portrait:w-[35px] portrait:shrink-0">-</div>
+                        <div className="text-sm portrait:text-xs flex items-center text-muted-foreground italic portrait:w-[35px] portrait:shrink-0 small-landscape-value">-</div>
                       )}
                     </div>
                     
-                    {/* Quality label - below on desktop, inline on mobile */}
-                    <div className="flex-1 min-w-0 portrait:overflow-hidden portrait:relative portrait:h-3.5">
+                    {/* Quality label - below on desktop, inline on mobile/small landscape */}
+                    <div className="flex-1 portrait:pt-1 min-w-0 flex items-center portrait:overflow-hidden portrait:relative portrait:h-3.5 small-landscape-quality">
                       {isAvailable && pollutantData ? (
-                        <div className="text-xs portrait:text-[9px] text-gray-600 leading-tight portrait:whitespace-nowrap wrap-break-word">
+                        <div className="text-sm portrait:text-xs text-gray-600 leading-tight portrait:whitespace-nowrap wrap-break-word">
                           {getAirQualityLevel(pollutantData.v).label}
                         </div>
                       ) : (
-                        <div className="text-xs portrait:text-[9px] text-muted-foreground italic">No data</div>
+                        <div className="text-tiny  text-muted-foreground italic">No data</div>
                       )}
                     </div>
                   </div>
                   
-                  {/* Mobile: Switch on the right */}
+                  {/* Mobile/Small Landscape: Switch on the right */}
                   <Switch
                     id={`${config.key}-mobile`}
                     checked={enabledSystems[config.key] && isAvailable}
                     onCheckedChange={() => onToggleSystem(config.key)}
                     disabled={!isAvailable}
-                    className="hidden portrait:inline-flex portrait:scale-75 portrait:shrink-0"
+                    className="hidden portrait:inline-flex portrait:scale-75 portrait:shrink-0 small-landscape-switch"
                   />
                 </div>
               );

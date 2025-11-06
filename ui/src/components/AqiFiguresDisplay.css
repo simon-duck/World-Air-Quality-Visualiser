@@ -6,3 +6,103 @@
   backdrop-filter: blur(10px);
   box-shadow: 20px 20px 40px -6px rgba(0,0,0,0.2);
 }
+
+/* Small landscape screens (height < 750px) */
+@media (orientation: landscape) and (max-height: 750px) {
+  .small-landscape-compact {
+    display: flex !important;
+  }
+  
+  .small-landscape-hidden {
+    display: none !important;
+  }
+  
+  .small-landscape-inline-header {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 1rem !important;
+  }
+  
+  .small-landscape-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  
+  .small-landscape-card {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.5rem !important;
+    min-height: 0 !important;
+  }
+  
+  .small-landscape-label-container {
+    width: 5rem !important;
+    flex-shrink: 0 !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    display: flex !important;
+  }
+  
+  .small-landscape-label-text {
+    width: 100% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  .small-landscape-label {
+    font-size: 0.75rem !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Show short label, hide full label */
+  .small-landscape-label-text .small-landscape-label {
+    display: inline !important;
+  }
+  
+  .small-landscape-label-text span:not(.small-landscape-label) {
+    display: none !important;
+  }
+  
+  .small-landscape-content {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.375rem !important;
+    flex: 1 !important;
+    justify-content: flex-end !important;
+  }
+  
+  .small-landscape-traffic-light {
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+  
+  .small-landscape-value {
+    font-size: 0.875rem !important;
+    width: 35px !important;
+    flex-shrink: 0 !important;
+    text-align: right !important;
+  }
+  
+  .small-landscape-quality {
+    overflow: hidden !important;
+    position: relative !important;
+    height: 0.875rem !important;
+    font-size: 9px !important;
+    white-space: nowrap !important;
+  }
+  
+  .small-landscape-switch {
+    display: inline-flex !important;
+    transform: scale(0.75) !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .small-landscape-header-text {
+    font-size: 0.75rem !important;
+    margin-left: 0 !important;
+  }
+}
