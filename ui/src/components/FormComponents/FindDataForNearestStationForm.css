@@ -25,20 +25,32 @@ form {
   border-top: 1px solid var(--white);
   border-left: 1px solid (--white);
   border-top: 1px solid (--white);
-  backdrop-filter: blur(10px);
   text-align: center;
   position: relative;
   transition: all 0.2s ease-in-out;
-
   opacity: 0.8;
 
 }
+
+@media (orientation: portrait) {
+  form {
+    padding: 0.5em;
+  }
+
+}
+
+@media (max-height: 500px) and (orientation: landscape){
+  form {
+    padding: 0;
+  }
+}
+
 
   p {
     font-weight: 500;
     color: #000000;
     opacity: 0.7;
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin-top: 0;
     margin:10px;
   }

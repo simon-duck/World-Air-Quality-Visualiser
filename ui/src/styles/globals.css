@@ -2,7 +2,7 @@
 
 :root {
   --font-display: "Tahoma", "sans-serif";
-  --font-size: 18px;
+  --font-size: 16px;
   --background: #a7a7a7;
   --foreground: oklch(0.145 0 0);
   --card: #ffffff;
@@ -57,6 +57,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --text-tiny: 0.5rem;
   --color-sidebar: var(--sidebar);
   --breakpoint-3xl: 125rem;
 
@@ -71,7 +72,7 @@ border-radius: 25px;
     font-weight: 500;
     color: #000000;
     opacity: 0.7;
-    font-size: clamp(1rem,2.5vmin,1.3rem);
+    /* font-size: clamp(0.3rem,2.5vmin,1.3rem); */
     margin-top: 0;
     margin:10px;
   }
