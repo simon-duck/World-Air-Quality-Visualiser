@@ -5,21 +5,23 @@ interface CityData {
   country: string;
   aqi: number;
   pollutant: string;
+  stationId: string;
 }
 
 const mockCityData: CityData[] = [
-  { city: "New York", country: "USA", aqi: 65, pollutant: "PM2.5" },
-  { city: "London", country: "UK", aqi: 42, pollutant: "NO2" },
-  { city: "Tokyo", country: "Japan", aqi: 38, pollutant: "PM2.5" },
-  { city: "Delhi", country: "India", aqi: 156, pollutant: "PM2.5" },
-  { city: "Beijing", country: "China", aqi: 89, pollutant: "PM2.5" },
-  { city: "Paris", country: "France", aqi: 51, pollutant: "NO2" },
-  { city: "Sydney", country: "Australia", aqi: 28, pollutant: "O3" },
-  { city: "Mexico City", country: "Mexico", aqi: 94, pollutant: "PM2.5" },
-  { city: "São Paulo", country: "Brazil", aqi: 73, pollutant: "PM2.5" },
-  { city: "Cairo", country: "Egypt", aqi: 167, pollutant: "PM2.5" },
-  { city: "Mumbai", country: "India", aqi: 142, pollutant: "PM2.5" },
-  { city: "Los Angeles", country: "USA", aqi: 87, pollutant: "O3" },
+  { city: "New York", country: "USA", aqi: 65, pollutant: "PM2.5", stationId: "3307" },
+  { city: "London", country: "UK", aqi: 42, pollutant: "NO2", stationId:"5724" },
+  { city: "Tokyo", country: "Japan", aqi: 38, pollutant: "PM2.5", stationId: "2302" },
+  { city: "Beijing", country: "China", aqi: 89, pollutant: "PM2.5", stationId: "1451"},
+  { city: "Paris", country: "France", aqi: 51, pollutant: "NO2", stationId: "5722"},
+  { city: "Sydney", country: "Australia", aqi: 28, pollutant: "O3", stationId: "12417"},
+  { city: "Mexico City", country: "Mexico", aqi: 94, pollutant: "PM2.5", stationId: "404"},
+  { city: "São Paulo", country: "Brazil", aqi: 73, pollutant: "PM2.5", stationId: "359"},
+  { city: "Cape Town", country: "South Africa", aqi: 167, pollutant: "PM2.5", stationId: "12829"},
+  { city: "Mumbai", country: "India", aqi: 142, pollutant: "PM2.5", stationId: "12454" },
+  { city: "Los Angeles", country: "USA", aqi: 87, pollutant: "O3", stationId: "A399061"},
+  {city: "Lagos", country: "Nigeria", aqi: 90, pollutant: "CO2", stationId:"A546313"},
+  {city: "Moscow", country: "Russia", aqi:120, pollutant: "PM10", stationId:"10486"}
 ];
 
 const getAQIColor = (aqi: number) => {
@@ -39,6 +41,8 @@ const getAQIBg = (aqi: number) => {
   if (aqi <= 300) return "bg-purple-100";
   return "bg-red-200";
 };
+
+
 
 export function TickerTape() {
   const duplicatedData = [...mockCityData, ...mockCityData];
