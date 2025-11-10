@@ -45,7 +45,9 @@ const mockAqiData: AirQualityDataSetDto = {
 const mockProps = {
   currentLongLat: { Longitude: -0.1278, Latitude: 51.5074 },
   aqiForClosestStation: mockAqiData,
-  onAqiChange: vi.fn()
+  onAqiChange: vi.fn(),
+  enabledSystems: {},
+  onToggleSystem: vi.fn()
 }
 
 describe('AqiFiguresDisplay', () => {

@@ -23,18 +23,18 @@ interface AirQualityLevel {
 }
 
 const getAirQualityLevel = (value: number): AirQualityLevel => {
-  if (value >= 0 && value <= 50) {
-    return { color: '#22c55e', label: 'Good' }; // green
-  } else if (value >= 51 && value <= 100) {
-    return { color: '#eab308', label: 'Moderate' }; // yellow
-  } else if (value >= 101 && value <= 150) {
-    return { color: '#f97316', label: 'Unhealthy for sensitive individuals' }; // orange
-  } else if (value >= 151 && value <= 200) {
-    return { color: '#ef4444', label: 'Unhealthy' }; // red
-  } else if (value >= 201 && value <= 300) {
-    return { color: '#a855f7', label: 'Very Unhealthy' }; // purple
+  if (value <= 50) {
+    return { color: '#16a34a', label: 'Good' }; // green-600
+  } else if (value <= 101) {
+    return { color: '#ca8a04', label: 'Moderate' }; // yellow-600
+  } else if (value <= 151) {
+    return { color: '#ea580c', label: 'Unhealthy for sensitive individuals' }; // orange-600
+  } else if (value <= 201) {
+    return { color: '#dc2626', label: 'Unhealthy' }; // red-600
+  } else if (value <= 301) {
+    return { color: '#9333ea', label: 'Very Unhealthy' }; // purple-600
   } else {
-    return { color: '#800000', label: 'Hazardous' }; // maroon
+    return { color: '#991b1b', label: 'Hazardous' }; // red-800
   }
 };
 
