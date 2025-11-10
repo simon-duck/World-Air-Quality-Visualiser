@@ -1,4 +1,4 @@
-# Air Pollution Visualiser
+# World Air Pollution Visualiser
 
 ## Description
 
