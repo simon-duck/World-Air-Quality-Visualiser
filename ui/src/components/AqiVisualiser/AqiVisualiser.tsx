@@ -75,8 +75,7 @@ export function AqiVisualiser({
         zoomDistance = 55; 
       }
       
-      console.log("width" + windowWidth);
-console.log("zoom" + zoomDistance);
+
       setCameraPosition([0, 0, zoomDistance]);
       
     };
@@ -140,7 +139,7 @@ console.log("zoom" + zoomDistance);
               top: 0,
               left: 0,
               width: "75vw",
-              height: "50vh",
+              height: "45vh",
               border: "5px solid #ffffff",
               borderRadius: "25px",
               display: "flex",
@@ -191,7 +190,7 @@ console.log("zoom" + zoomDistance);
         <div
           style={{
             width: "75vw",
-            height: "50vh",
+            height: "45vh",
             border: "5px solid #ffffff",
             borderRadius: "25px",
           }}>

@@ -34,22 +34,22 @@ export function FindDataForNearestStationForm({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-0 xl:p-2 portrait:p-0 mb-2 portrait:mb-2 md:mb5 mx-auto portrait:w-[75vw] landscape:max-xl:w-fit landscape:max-xl:p-2">
+    <div className="bg-white rounded-lg shadow-sm border p-0 xl:p-0.5 portrait:p-0 mb-2 portrait:mb-1 md:mb-4 mx-auto portrait:w-[75vw] landscape:max-xl:w-fit landscape:max-xl:p-1.5 scale-90">
       <form onSubmit={handleSubmit(submitForm)}>
-        <div className="flex flex-col sm:items-center sm:justify-between portrait:gap-2">
+        <div className="flex flex-col sm:items-center sm:justify-between portrait:gap-1.5">
           {/* Desktop: Show instructional text */}
           <div className="flex-1 portrait:hidden">
-            <p className="hidden xl:flex text-gray-700 mb-2">
+            <p className="hidden xl:flex text-gray-700 mb-1.5 text-xs">
               Click on the map to select location and view air quality data
             </p>
 
-            <div className="flex gap-3">
+            <div className="flex gap-2">
               <div className="flex-1">
-                <label className=" text-sm text-gray-600 mb-1 hidden">
+                <label className=" text-xs text-gray-600 mb-1 hidden">
                   Latitude
                 </label>
                 <input
-                  className="w-full px-3 py-2 border rounded-md hidden text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-2 py-1.5 border rounded-md hidden text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
                   type="text"
                   placeholder="0.0000"
                   {...register("Latitude", {
@@ -59,11 +59,11 @@ export function FindDataForNearestStationForm({
                 />
               </div>
               <div className="flex-1">
-                <label className=" text-sm text-gray-600 mb-1 hidden">
+                <label className=" text-xs text-gray-600 mb-1 hidden">
                   Longitude
                 </label>
                 <input
-                  className="hidden w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="hidden w-full px-2 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
                   type="text"
                   placeholder="0.0000"
                   {...register("Longitude", {
@@ -78,7 +78,7 @@ export function FindDataForNearestStationForm({
           {/* Action button */}
           <div className="flex gap-2 sm:w-auto w-full">
             <button
-              className={`px-4 py-2 portrait:px-3 portrait:py-1.5 text-white rounded-md text-xs md:text-sm portrait:text-xs font-medium flex-1 sm:flex-none sm:w-32 portrait:w-full ${
+              className={`px-3 py-1.5 portrait:px-2.5 portrait:py-1 text-white rounded-md text-xs portrait:text-xs font-medium flex-1 sm:flex-none sm:w-28 portrait:w-full ${
                 mapVisible
                   ? "bg-red-600 hover:bg-red-700"
                   : "bg-blue-600 hover:bg-blue-700"

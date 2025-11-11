@@ -94,10 +94,10 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
   return (
 
 
-    <Card className="p-4 md:p-3 max-w-7xl mx-auto w-full">
+    <Card className="p-3 md:p-2 max-w-6xl mx-auto w-full scale-90">
       {/* Header: Title, Location, and Time - combined on small landscape screens */}
       <div className="flex flex-col small-landscape-inline-header">
-        <h3 className="font-bold text-sm sm:text-md lg:text-lg ml-2 small-landscape-header-text">AQI Data</h3>
+        <h3 className="font-bold text-xs sm:text-sm lg:text-base ml-2 small-landscape-header-text">AQI Data</h3>
         
         {/* Location and time - shown inline on small landscape screens */}
         {currentLongLat.Latitude !== 0 && currentLongLat.Longitude !== 0 && (
@@ -114,23 +114,23 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
       
       {/* Show message when no location is selected */}
       {currentLongLat.Latitude === 0 && currentLongLat.Longitude === 0 ? (
-        <div className="text-center py-4 text-gray-500">
-          <div className="text-xs sm:text-sm md:text-base lg:text-lg">📍 No location selected</div>
-          <div className="text-xs sm:text-sm md:text-base lg:text-lg">Choose location with the map to view air quality data</div>
+        <div className="text-center py-3 text-gray-500">
+          <div className="text-xs sm:text-sm md:text-base">📍 No location selected</div>
+          <div className="text-xs sm:text-sm md:text-base">Choose location with the map to view air quality data</div>
         </div>
       ) : (
         <>
           {/* Header section with location and time - hidden on small landscape screens */}
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b portrait:gap-0.5 portrait:pb-1 small-landscape-hidden">
             <div>
-              <div className="text-xs sm:text-sm md:text-base lg:text-lg portrait:text-xs font-medium text-gray-700">
+              <div className="text-xs sm:text-sm md:text-base portrait:text-xs font-medium text-gray-700">
                 <span className="text-gray-600">Location:</span> {aqiForClosestStation?.data?.city?.name || 'Loading...'}
               </div>
             </div>
             
             {currentTime && (
               <div className="text-left sm:text-right mt-2 portrait:mt-0 sm:mt-0">  
-                <div className="text-xs sm:text-sm md:text-base lg:text-lg portrait:text-xs font-medium text-gray-700">Local Time: {currentTime}</div>
+                <div className="text-xs sm:text-sm md:text-base portrait:text-xs font-medium text-gray-700">Local Time: {currentTime}</div>
               </div>
             )}
           </div>
@@ -140,7 +140,7 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
        {/* Only show particle controls when location is selected */}
        {currentLongLat.Latitude !== 0 || currentLongLat.Longitude !== 0 ? (
          <div>
-           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4 small-landscape-grid">
+           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3 small-landscape-grid">
              {PARTICLE_CONFIGS.map((config: typeof PARTICLE_CONFIGS[0]) => {
               // Handle AQI differently since it's not in iaqi
               let pollutantData;
@@ -157,7 +157,7 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
               return (
                 <div
                   key={config.key}
-                  className={`flex flex-col md:flex-col md:min-h-[140px] gap-2 p-4 md:p-4 portrait:p-2 portrait:flex-row portrait:items-center portrait:gap-2 portrait:min-h-0 small-landscape-card rounded-lg border transition-all duration-200 hover:shadow-md ${!isAvailable ? 'opacity-50' : ''}`}
+                  className={`flex flex-col md:flex-col md:min-h-[120px] gap-2 p-3 md:p-3 portrait:p-2 portrait:flex-row portrait:items-center portrait:gap-2 portrait:min-h-0 small-landscape-card rounded-lg border transition-all duration-200 hover:shadow-md ${!isAvailable ? 'opacity-50' : ''}`}
                   style={{
                     backgroundColor: isAvailable ? `${config.color}15` : 'transparent',
                     borderColor: isAvailable ? config.color : 'var(--border)',
@@ -206,22 +206,22 @@ const AqiFigures: React.FC<AqiFiguresDisplayProps> = ({
                       
                       {/* Value - fixed width on mobile */}
                       {isAvailable && pollutantData ? (
-                        <div className="text-lg portrait:text-sm flex items-center font-bold text-gray-800 portrait:w-[35px] portrait:shrink-0 portrait:text-right small-landscape-value">
+                        <div className="text-base portrait:text-sm flex items-center font-bold text-gray-800 portrait:w-[35px] portrait:shrink-0 portrait:text-right small-landscape-value">
                           {pollutantData.v}
                         </div>
                       ) : (
-                        <div className="text-sm portrait:text-xs flex items-center text-muted-foreground italic portrait:w-[35px] portrait:shrink-0 small-landscape-value">-</div>
+                        <div className="text-xs portrait:text-xs flex items-center text-muted-foreground italic portrait:w-[35px] portrait:shrink-0 small-landscape-value">-</div>
                       )}
                     </div>
                     
                     {/* Quality label - below on desktop, inline on mobile/small landscape */}
                     <div className="flex-1 portrait:pt-1 min-w-0 flex items-center portrait:overflow-hidden portrait:relative portrait:h-3.5 small-landscape-quality">
                       {isAvailable && pollutantData ? (
-                        <div className="text-sm portrait:text-xs text-gray-600 leading-tight portrait:whitespace-nowrap wrap-break-word">
+                        <div className="text-xs portrait:text-xs text-gray-600 leading-tight portrait:whitespace-nowrap wrap-break-word">
                           {getAirQualityLevel(pollutantData.v).label}
                         </div>
                       ) : (
-                        <div className="text-tiny  text-muted-foreground italic">No data</div>
+                        <div className="text-tiny text-muted-foreground italic">No data</div>
                       )}
                     </div>
                   </div>

@@ -49,7 +49,7 @@ export function MapComponent({
           key="map"
           style={{
             width: "75vw",
-            height: "50vh",
+            height: "45vh",
             border: "5px solid #ffffff",
             borderRadius: "25px",
             overflow: "hidden",
