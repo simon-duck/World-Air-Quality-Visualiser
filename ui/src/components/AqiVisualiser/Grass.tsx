@@ -95,14 +95,14 @@ const Grass = memo(function Grass({
   // Load textures
   const grassTexture = useMemo(() => {
     const loader = new THREE.TextureLoader();
-    const texture = loader.load('/src/assets/blade_diffuse.jpg');
+    const texture = loader.load('../assets/blade_diffuse.jpg');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     return texture;
   }, []);
 
   const alphaTexture = useMemo(() => {
     const loader = new THREE.TextureLoader();
-    const texture = loader.load('/src/assets/blade_alpha.jpg');
+    const texture = loader.load('../assets/blade_alpha.jpg');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     return texture;
   }, []);
