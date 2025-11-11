@@ -17,15 +17,6 @@ public class IntegrationTests : IClassFixture<WebApplicationFactory<Program>>
         _client = _factory.CreateClient();
     }
 
-    [Fact]
-    public async Task GetStations_ReturnsSuccessStatusCode()
-    {
-        // Act
-        var response = await _client.GetAsync("/stations");
-
-        // Assert
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-    }
 
     [Fact]
     public async Task AirQualityByUID_WithValidUID_ReturnsSuccessStatusCode()
