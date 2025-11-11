@@ -6,9 +6,12 @@ var AllowSpecificOrigins = "_AllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Get PORT from environment variable (Cloud Run requirement)
+// CRITICAL: Configure to listen on the PORT environment variable
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(port));
+});
 
 builder.Services.AddCors(options =>
 {
