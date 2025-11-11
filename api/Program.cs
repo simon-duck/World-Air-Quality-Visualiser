@@ -46,7 +46,15 @@ builder.Services.AddCors(options =>
     }
 });
 
-DotEnv.Load();
+// Load .env file only if it exists (won't exist in Docker)
+try
+{
+    DotEnv.Load();
+}
+catch
+{
+    // .env file not found or error loading - continue with environment variables
+}
 
 // Add services to the container.
 
