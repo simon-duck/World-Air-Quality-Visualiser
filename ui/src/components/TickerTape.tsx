@@ -1,4 +1,7 @@
 import { motion } from "motion/react"
+import { useEffect, useState } from "react"
+import { getAqiFiguresByUIDs } from "../Api/ApiClient"
+import type { AirQualityDataSetDto } from "../Api/ApiClient"
 
 interface CityData {
   city: string;
@@ -8,20 +11,21 @@ interface CityData {
   stationId: string;
 }
 
-const mockCityData: CityData[] = [
-  { city: "New York", country: "USA", aqi: 65, pollutant: "PM2.5", stationId: "3307" },
-  { city: "London", country: "UK", aqi: 42, pollutant: "NO2", stationId:"5724" },
-  { city: "Tokyo", country: "Japan", aqi: 38, pollutant: "PM2.5", stationId: "2302" },
-  { city: "Beijing", country: "China", aqi: 89, pollutant: "PM2.5", stationId: "1451"},
-  { city: "Paris", country: "France", aqi: 51, pollutant: "NO2", stationId: "5722"},
-  { city: "Sydney", country: "Australia", aqi: 28, pollutant: "O3", stationId: "12417"},
-  { city: "Mexico City", country: "Mexico", aqi: 94, pollutant: "PM2.5", stationId: "404"},
-  { city: "São Paulo", country: "Brazil", aqi: 73, pollutant: "PM2.5", stationId: "359"},
-  { city: "Cape Town", country: "South Africa", aqi: 167, pollutant: "PM2.5", stationId: "12829"},
-  { city: "Mumbai", country: "India", aqi: 142, pollutant: "PM2.5", stationId: "12454" },
-  { city: "Los Angeles", country: "USA", aqi: 87, pollutant: "O3", stationId: "A399061"},
-  {city: "Lagos", country: "Nigeria", aqi: 90, pollutant: "CO2", stationId:"A546313"},
-  {city: "Moscow", country: "Russia", aqi:120, pollutant: "PM10", stationId:"10486"}
+// Static city info with station IDs
+const cityStations = [
+  { city: "New York", country: "USA", stationId: "3307" },
+  { city: "London", country: "UK", stationId: "5724" },
+  { city: "Tokyo", country: "Japan", stationId: "2302" },
+  { city: "Beijing", country: "China", stationId: "1451" },
+  { city: "Paris", country: "France", stationId: "5722" },
+  { city: "Sydney", country: "Australia", stationId: "12417" },
+  { city: "Mexico City", country: "Mexico", stationId: "404" },
+  { city: "São Paulo", country: "Brazil", stationId: "359" },
+  { city: "Cape Town", country: "South Africa", stationId: "12829" },
+  { city: "Mumbai", country: "India", stationId: "12454" },
+  { city: "Los Angeles", country: "USA", stationId: "A399061" },
+  { city: "Lagos", country: "Nigeria", stationId: "A546313" },
+  { city: "Moscow", country: "Russia", stationId: "10486" }
 ];
 
 const getAQIColor = (aqi: number) => {
@@ -45,7 +49,58 @@ const getAQIBg = (aqi: number) => {
 
 
 export function TickerTape() {
-  const duplicatedData = [...mockCityData, ...mockCityData];
+  const [cityData, setCityData] = useState<CityData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCityData = async () => {
+      try {
+        // Extract all station IDs
+        const stationIds = cityStations.map(station => station.stationId);
+        
+        // Call the batch API endpoint
+        const apiData: Record<string, AirQualityDataSetDto> = await getAqiFiguresByUIDs(stationIds);
+        
+        // Map the API response to city data
+        const updatedCityData = cityStations.map(station => {
+          const stationData = apiData[station.stationId];
+          
+          return {
+            city: station.city,
+            country: station.country,
+            stationId: station.stationId,
+            aqi: stationData?.data?.aqi ?? 0,
+            pollutant: stationData?.data?.dominentpol?.toUpperCase() ?? "N/A"
+          };
+        });
+        
+        setCityData(updatedCityData);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching ticker tape data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchCityData();
+    
+    // Refresh data every 10 minutes
+    const interval = setInterval(fetchCityData, 600000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="w-full bg-muted border-t overflow-hidden py-1 lg:py-2 fixed bottom-0">
+        <div className="flex justify-center items-center h-8">
+          <span className="text-xs text-muted-foreground">Loading air quality data...</span>
+        </div>
+      </div>
+    );
+  }
+
+  const duplicatedData = [...cityData, ...cityData];
 
   return (
     <div className="w-full bg-muted border-t overflow-hidden py-1 lg:py-2 fixed bottom-0">
