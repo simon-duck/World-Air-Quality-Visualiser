@@ -2,15 +2,25 @@ using api.Middleware;
 using api.Repositories;
 using dotenv.net;
 
-Console.WriteLine("Starting application...");
+var builder = WebApplication.CreateBuilder(args);
+
+// Configure logging to stdout for Cloud Run
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
+
+var logger = LoggerFactory.Create(config => 
+{
+    config.AddConsole();
+}).CreateLogger("Startup");
+
+logger.LogInformation("=== Application Starting ===");
 
 var AllowSpecificOrigins = "_AllowSpecificOrigins";
 
-var builder = WebApplication.CreateBuilder(args);
-
 // CRITICAL: Configure to listen on the PORT environment variable for Cloud Run
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-Console.WriteLine($"Configuring to listen on port: {port}");
+logger.LogInformation($"Configuring to listen on port: {port}");
 builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 builder.Services.AddCors(options =>
@@ -52,18 +62,18 @@ builder.Services.AddCors(options =>
 // Load .env file only if it exists (won't exist in Docker)
 try
 {
-    Console.WriteLine("Attempting to load .env file...");
+    logger.LogInformation("Attempting to load .env file...");
     DotEnv.Load();
-    Console.WriteLine(".env file loaded successfully");
+    logger.LogInformation(".env file loaded successfully");
 }
 catch (Exception ex)
 {
-    Console.WriteLine($".env file not found or error loading: {ex.Message}");
+    logger.LogWarning($".env file not found or error loading: {ex.Message}");
     // .env file not found or error loading - continue with environment variables
 }
 
 // Add services to the container.
-Console.WriteLine("Registering services...");
+logger.LogInformation("Registering services...");
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IAirQualityDataRepository, AirQualityDataRepository>();
@@ -77,10 +87,14 @@ builder.Services.AddSwaggerGen(options =>
     options.CustomSchemaIds(type => type.FullName);
 });
 
-Console.WriteLine("Building application...");
+logger.LogInformation("Building application...");
 var app = builder.Build();
 
-Console.WriteLine("Configuring middleware pipeline...");
+logger.LogInformation("Configuring middleware pipeline...");
+
+// Add a simple health check endpoint
+app.MapGet("/", () => "API is running");
+app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -103,9 +117,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-Console.WriteLine($"Starting server on http://0.0.0.0:{port}...");
+logger.LogInformation($"=== Starting server on http://0.0.0.0:{port} ===");
 app.Run();
-Console.WriteLine("Application stopped.");
+logger.LogInformation("Application stopped.");
 
 // Make Program class public for testing
 public partial class Program { }
