@@ -3,6 +3,9 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  VITE_API_URL = "https://air-pollution-visualiser-191519804984.europe-west1.run.app"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
