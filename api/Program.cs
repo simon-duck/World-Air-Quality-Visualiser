@@ -29,6 +29,21 @@ builder.Services.AddCors(options =>
             }
         );
     }
+    else
+    {
+        // Production: Allow requests from your frontend URL
+        options.AddPolicy(
+            name: AllowSpecificOrigins,
+            policy =>
+            {
+                policy
+                    .WithOrigins("https://air-pollution-visualiser.netlify.app", "https://air-pollution-visualiser-191519804984.europe-west1.run.app")
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .AllowAnyHeader();
+            }
+        );
+    }
 });
 
 DotEnv.Load();
