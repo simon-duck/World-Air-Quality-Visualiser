@@ -69,7 +69,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="min-h-90vh flex flex-col min-w-screen items-center space-y-6">
+      <div className="flex-1 flex flex-col min-w-screen items-center space-y-6 overflow-y-auto">
         {/* Container for both AqiVisualiser and MapComponent */}
         <div className="flex justify-center">
           {/* AqiVisualiser - hidden when map is visible */}

@@ -117,17 +117,17 @@ export function TickerTape() {
           {duplicatedData.map((city, index) => (
             <div
               key={`${city.city}-${index}`}
-              className="flex items-center gap-3 px-4 py-0.5 rounded-full bg-background shadow-sm min-w-fit">
+              className="flex items-center gap-3 px-4 py-0.3 rounded-full bg-background shadow-sm min-w-fit">
               <span className="text-xs lg:text-sm font-medium">
                 {city.city}, {city.country}
               </span>
               <span
-                className={`text-xs px-2 py-0.3 lg:py-1 rounded-full ${getAQIBg(
+                className={`text-tiny lg:text-xs px-2 py-0.1 lg:py-0.3 rounded-full ${getAQIBg(
                   city.aqi
                 )} ${getAQIColor(city.aqi)} font-medium`}>
                 AQI {city.aqi}
               </span>
-              <span className="text-xs text-muted-foreground">
+              <span className="text-tiny lg:text-xs text-muted-foreground">
                 {city.pollutant}
               </span>
             </div>
