@@ -19,7 +19,10 @@ logger.LogInformation("=== Application Starting ===");
 var AllowSpecificOrigins = "_AllowSpecificOrigins";
 
 // CRITICAL: Configure to listen on the PORT environment variable for Cloud Run
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+// In development, use port 5090; in production, use PORT env var (Cloud Run provides 8080)
+var port = builder.Environment.IsDevelopment() 
+    ? "5090" 
+    : (Environment.GetEnvironmentVariable("PORT") ?? "8080");
 logger.LogInformation($"Configuring to listen on port: {port}");
 builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
