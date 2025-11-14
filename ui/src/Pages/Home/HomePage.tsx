@@ -114,7 +114,19 @@ const HomePage = () => {
   return (
     <div className="flex flex-col h-screen overflow-y-auto">
       {/* Location Permission Dialog */}
-      <Dialog open={showLocationDialog} onOpenChange={setShowLocationDialog}>
+      <Dialog
+        open={showLocationDialog}
+        onOpenChange={(open) => {
+          if (!open) {
+            setCurrentLongLat(prev =>
+              prev.Latitude === 0 && prev.Longitude === 0
+                ? LONDON_COORDS
+                : prev
+            );
+          }
+          setShowLocationDialog(open);
+        }}
+      >
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Enable Location Services</DialogTitle>
