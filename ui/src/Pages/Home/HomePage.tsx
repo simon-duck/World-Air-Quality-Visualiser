@@ -66,14 +66,46 @@ const HomePage = () => {
 
   // Get user's location on component mount
   useEffect(() => {
+    let isMounted = true;
+
     if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // Only update state if component is still mounted
+          if (isMounted) {
+            const coords: LongLat = {
+              Latitude: position.coords.latitude,
+              Longitude: position.coords.longitude
+            };
+            setCurrentLongLat(coords);
+          }
+        },
+        (error) => {
+          // Only update state if component is still mounted
+          if (isMounted) {
+            console.log('Geolocation error, using London as fallback:', error.message);
+            setCurrentLongLat(LONDON_COORDS);
+          }
+        },
+        {
+          timeout: 5000,
+          maximumAge: 0
+        }
+      );
       // Show dialog to request permission
       setShowLocationDialog(true);
     } else {
       // Geolocation not supported, use London as fallback
       console.log('Geolocation not supported, using London as fallback');
-      setCurrentLongLat(LONDON_COORDS);
+      if (isMounted) {
+        setCurrentLongLat(LONDON_COORDS);
+      }
     }
+
+    // Cleanup function to prevent state updates after unmount
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const requestLocationPermission = () => {
