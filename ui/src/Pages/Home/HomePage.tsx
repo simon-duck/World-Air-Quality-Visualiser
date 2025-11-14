@@ -56,20 +56,26 @@ const HomePage = () => {
 
   // Get user's location on component mount
   useEffect(() => {
+    let isMounted = true;
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          // Successfully got user's location
-          const coords: LongLat = {
-            Latitude: position.coords.latitude,
-            Longitude: position.coords.longitude
-          };
-          setCurrentLongLat(coords);
+          // Only update state if component is still mounted
+          if (isMounted) {
+            const coords: LongLat = {
+              Latitude: position.coords.latitude,
+              Longitude: position.coords.longitude
+            };
+            setCurrentLongLat(coords);
+          }
         },
         (error) => {
-          // Failed to get location, use London as fallback
-          console.log('Geolocation error, using London as fallback:', error.message);
-          setCurrentLongLat(LONDON_COORDS);
+          // Only update state if component is still mounted
+          if (isMounted) {
+            console.log('Geolocation error, using London as fallback:', error.message);
+            setCurrentLongLat(LONDON_COORDS);
+          }
         },
         {
           timeout: 5000,
@@ -81,6 +87,11 @@ const HomePage = () => {
       console.log('Geolocation not supported, using London as fallback');
       setCurrentLongLat(LONDON_COORDS);
     }
+
+    // Cleanup function to prevent state updates after unmount
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const toggleMap = () => {
