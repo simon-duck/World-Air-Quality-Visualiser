@@ -3,6 +3,16 @@ import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import HomePage from './HomePage'
 
+// Mock geolocation
+const mockGeolocation = {
+  getCurrentPosition: vi.fn(),
+};
+
+Object.defineProperty(global.navigator, 'geolocation', {
+  value: mockGeolocation,
+  writable: true,
+});
+
 // Mock Canvas and react-three-fiber
 vi.mock('@react-three/fiber', () => ({
   Canvas: ({ children }: { children: React.ReactNode }) => (
@@ -48,6 +58,10 @@ vi.mock('../../styles/app.css', () => ({}))
 describe('HomePage', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    // Reset geolocation mock to do nothing (keeps initial 0,0)
+    mockGeolocation.getCurrentPosition.mockImplementation(() => {
+      // Don't call success or error - component stays at initial (0, 0)
+    })
   })
 
   it('renders all main components', () => {
@@ -87,9 +101,9 @@ describe('HomePage', () => {
   it('has correct layout structure', () => {
     render(<HomePage />)
     
-    // Main container should have correct classes (space-y-6 instead of rounded-sm)
-    const mainContainer = document.querySelector('.min-h-95vh')
-    expect(mainContainer).toHaveClass('min-h-95vh', 'flex', 'flex-col', 'min-w-screen', 'items-center', 'space-y-6')
+    // Main container should have correct classes - updated to match current implementation
+    const mainContainer = document.querySelector('.flex-1')
+    expect(mainContainer).toHaveClass('flex-1', 'flex', 'flex-col', 'min-w-screen', 'items-center', 'space-y-6')
   })
 
   it('positions AQI figures display in a container with max width', () => {
