@@ -85,7 +85,9 @@ const HomePage = () => {
     } else {
       // Geolocation not supported, use London as fallback
       console.log('Geolocation not supported, using London as fallback');
-      setCurrentLongLat(LONDON_COORDS);
+      if (isMounted) {
+        setCurrentLongLat(LONDON_COORDS);
+      }
     }
 
     // Cleanup function to prevent state updates after unmount
