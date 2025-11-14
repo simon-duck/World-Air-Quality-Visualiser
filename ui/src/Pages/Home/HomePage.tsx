@@ -154,7 +154,11 @@ const HomePage = () => {
       <Dialog
         open={showLocationDialog}
         onOpenChange={(open) => {
-          setShowLocationDialog(open);
+          if (!open) {
+            declineLocationPermission();
+          } else {
+            setShowLocationDialog(open);
+          }
         }}
       >
         <DialogContent className="bg-white rounded-lg shadow-sm border">
