@@ -19,15 +19,10 @@ import {
   DialogTitle,
 } from "../../components/ui-components/dialog";
 import { Button } from "../../components/ui-components/button";
+import { LONDON_COORDS } from "../../utils/constants";
 import "leaflet/dist/leaflet.css";
 import "../.././styles/globals.css";
 import "../.././styles/app.css";
-
-// London coordinates as fallback
-const LONDON_COORDS: LongLat = {
-  Latitude: 51.5074,
-  Longitude: -0.1278
-};
 
 const HomePage = () => {
   const [enabledSystems, setEnabledSystems] = useState<
