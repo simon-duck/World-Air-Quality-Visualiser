@@ -46,6 +46,12 @@ const getAQIBg = (aqi: number) => {
   return "bg-red-200";
 };
 
+const formatPollutant = (pollutant: string) => {
+  if (pollutant === "PM25") return "PM2.5";
+  if (pollutant === "PM10") return "PM10";
+  return pollutant;
+};
+
 
 
 export function TickerTape() {
@@ -128,7 +134,7 @@ export function TickerTape() {
                 AQI {city.aqi}
               </span>
               <span className="text-tiny lg:text-xs text-muted-foreground">
-                {city.pollutant}
+                {formatPollutant(city.pollutant)}
               </span>
             </div>
           ))}
