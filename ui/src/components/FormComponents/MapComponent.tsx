@@ -2,6 +2,7 @@ import { type JSX, useState, useEffect } from "react";
 import { LocationMarkerMap } from "./LocationMarkerMap";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { latLng, LatLng } from "leaflet";
+import { LONDON_COORDS } from "../../utils/constants";
 import "leaflet/dist/leaflet.css";
 
 export interface LongLat {
@@ -27,8 +28,8 @@ export function MapComponent({
     (initialCoordinates.Latitude !== 0 || initialCoordinates.Longitude !== 0);
   
   const [position, setPosition] = useState<[number, number]>([
-    hasValidCoordinates ? initialCoordinates.Latitude : 51.5074, 
-    hasValidCoordinates ? initialCoordinates.Longitude : -0.1278,
+    hasValidCoordinates ? initialCoordinates.Latitude : LONDON_COORDS.Latitude, 
+    hasValidCoordinates ? initialCoordinates.Longitude : LONDON_COORDS.Longitude,
   ]);
 
   // Update position when initialCoordinates changes
@@ -74,8 +75,8 @@ export function MapComponent({
         >
           <MapContainer
             center={{ 
-              lat: hasValidCoordinates ? initialCoordinates.Latitude : 51.5074, 
-              lng: hasValidCoordinates ? initialCoordinates.Longitude : -0.1278 
+              lat: hasValidCoordinates ? initialCoordinates.Latitude : LONDON_COORDS.Latitude, 
+              lng: hasValidCoordinates ? initialCoordinates.Longitude : LONDON_COORDS.Longitude 
             }}
             maxBounds={[
               [-90, -180],
