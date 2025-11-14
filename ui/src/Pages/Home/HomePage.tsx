@@ -94,20 +94,23 @@ const HomePage = () => {
   };
 
   const requestLocationPermission = () => {
+    console.log('Requesting user location...');
     const success = getUserLocation(
       (coords) => {
         // Successfully got user's location
+        console.log('Location obtained:', coords);
         setCurrentLongLat(coords);
         setShowLocationDialog(false);
       },
       (error) => {
         // Failed to get location, keep London as default
-        console.log('Geolocation error, keeping London as default:', error.message);
+        console.log('Geolocation error:', error.code, error.message);
         setShowLocationDialog(false);
       }
     );
 
     if (!success) {
+      console.log('Geolocation not supported');
       setShowLocationDialog(false);
     }
   };
