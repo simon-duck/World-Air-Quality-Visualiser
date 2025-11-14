@@ -10,6 +10,15 @@ import {
 } from "../.././components/FormComponents/FindDataForNearestStationForm";
 import { MapComponent } from "../.././components/FormComponents/MapComponent";
 import { useForm } from "react-hook-form";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../../components/ui-components/dialog";
+import { Button } from "../../components/ui-components/button";
 import "leaflet/dist/leaflet.css";
 import "../.././styles/globals.css";
 import "../.././styles/app.css";
@@ -49,6 +58,7 @@ const HomePage = () => {
   const [aqiForClosestStation, setAqiForClosestStation] =
     useState<AirQualityDataSetDto | null>(null);
   const [mapVisible, setMapVisible] = useState(false);
+  const [showLocationDialog, setShowLocationDialog] = useState(false);
 
   const { setValue } = useForm<LongLat>({
     defaultValues: { Longitude: 0, Latitude: 0 },
@@ -57,25 +67,8 @@ const HomePage = () => {
   // Get user's location on component mount
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // Successfully got user's location
-          const coords: LongLat = {
-            Latitude: position.coords.latitude,
-            Longitude: position.coords.longitude
-          };
-          setCurrentLongLat(coords);
-        },
-        (error) => {
-          // Failed to get location, use London as fallback
-          console.log('Geolocation error, using London as fallback:', error.message);
-          setCurrentLongLat(LONDON_COORDS);
-        },
-        {
-          timeout: 5000,
-          maximumAge: 0
-        }
-      );
+      // Show dialog to request permission
+      setShowLocationDialog(true);
     } else {
       // Geolocation not supported, use London as fallback
       console.log('Geolocation not supported, using London as fallback');
@@ -83,12 +76,65 @@ const HomePage = () => {
     }
   }, []);
 
+  const requestLocationPermission = () => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        // Successfully got user's location
+        const coords: LongLat = {
+          Latitude: position.coords.latitude,
+          Longitude: position.coords.longitude
+        };
+        setCurrentLongLat(coords);
+        setShowLocationDialog(false);
+      },
+      (error) => {
+        // Failed to get location, use London as fallback
+        console.log('Geolocation error, using London as fallback:', error.message);
+        setCurrentLongLat(LONDON_COORDS);
+        setShowLocationDialog(false);
+      },
+      {
+        timeout: 5000,
+        maximumAge: 0
+      }
+    );
+  };
+
+  const declineLocationPermission = () => {
+    // User declined, use London as fallback
+    console.log('User declined location access, using London as fallback');
+    setCurrentLongLat(LONDON_COORDS);
+    setShowLocationDialog(false);
+  };
+
   const toggleMap = () => {
     setMapVisible(!mapVisible);
   };
     
   return (
     <div className="flex flex-col h-screen overflow-y-auto">
+      {/* Location Permission Dialog */}
+      <Dialog open={showLocationDialog} onOpenChange={setShowLocationDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Enable Location Services</DialogTitle>
+            <DialogDescription>
+              We'd like to use your location to show you air quality data for your area.
+              This helps us provide you with the most relevant and accurate information.
+              You can always change the location manually later.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={declineLocationPermission}>
+              No, use default location
+            </Button>
+            <Button onClick={requestLocationPermission}>
+              Allow location access
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <div className="flex w-screen mb-0 md:mb-4 portrait:flex-col portrait:items-center ">
         <img
           src="High-Resolution-Color-Logo-on-Transparent-Background_edited.png"
