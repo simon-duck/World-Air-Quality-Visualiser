@@ -72,7 +72,6 @@ const HomePage = () => {
     onError: (error: GeolocationPositionError) => void
   ) => {
     if (!navigator.geolocation) {
-      console.log('Geolocation not available');
       return false;
     }
 
@@ -100,9 +99,8 @@ const HomePage = () => {
         setCurrentLongLat(coords);
         setShowLocationDialog(false);
       },
-      (error) => {
+      (_error) => {
         // Failed to get location, keep London as default
-        console.log('Geolocation error, keeping London as default:', error.message);
         setShowLocationDialog(false);
       }
     );
@@ -114,7 +112,6 @@ const HomePage = () => {
 
   const declineLocationPermission = () => {
     // User declined, keep London as default
-    console.log('User declined location access, using London');
     setShowLocationDialog(false);
   };
 
