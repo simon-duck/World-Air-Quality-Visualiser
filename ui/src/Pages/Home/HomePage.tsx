@@ -116,13 +116,6 @@ const HomePage = () => {
       <Dialog
         open={showLocationDialog}
         onOpenChange={(open) => {
-          if (!open) {
-            setCurrentLongLat(prev =>
-              prev.Latitude === 0 && prev.Longitude === 0
-                ? LONDON_COORDS
-                : prev
-            );
-          }
           setShowLocationDialog(open);
         }}
       >
