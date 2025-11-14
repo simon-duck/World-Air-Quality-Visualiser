@@ -33,7 +33,10 @@ export function MapComponent({
 
   // Update position when initialCoordinates changes
   useEffect(() => {
-    if (hasValidCoordinates) {
+    if (
+      initialCoordinates &&
+      (initialCoordinates.Latitude !== 0 || initialCoordinates.Longitude !== 0)
+    ) {
       setPosition([initialCoordinates.Latitude, initialCoordinates.Longitude]);
     }
   }, [initialCoordinates]);
