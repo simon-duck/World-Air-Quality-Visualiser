@@ -100,8 +100,8 @@ This section maps findings to the code review checklist in `docs/engineering/cod
 - 🔴 **Blocking:** Integration tests only validate status codes, not response structure or data
 - 🟡 **Recommended:** Missing tests for critical error paths (rate limiting, security headers, external API failures)
 - 🟡 **Recommended:** No frontend tests for retry logic, error states, or loading states
-- � **Recommended:** Integration tests hit the live WAQI API, creating flakiness, consuming quota, and violating the hermetic test guidance in `.github/copilot-instructions.md#quality-policy`
-- �🔵 **Nit:** Generic test file name (`UnitTest1.cs`)
+- 🟡 **Recommended:** Integration tests hit the live WAQI API, creating flakiness, consuming quota, and violating the hermetic test guidance in `.github/copilot-instructions.md#quality-policy`
+- 🔵 **Nit:** Generic test file name (`UnitTest1.cs`)
 
 **Coverage Status:** Current tests exist but don't meet the 100% requirement for hot/error/security paths per `.github/copilot-instructions.md#quality-policy`.
 
