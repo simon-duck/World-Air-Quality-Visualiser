@@ -74,7 +74,7 @@ export function AqiVisualiser({
       } else if (windowWidth < 800) {
         zoomDistance = 100;
         planeSize = 500;
-        grassInstances = 40000
+        grassInstances = 40000;
       } 
       else if (windowWidth < 1000) {
         zoomDistance = 110;
