@@ -70,11 +70,11 @@ export function AqiVisualiser({
       if (windowWidth < 600) {
         zoomDistance = 125;
         planeSize = 400;
-        grassInstances = 200000;
+        grassInstances = 20000;
       } else if (windowWidth < 800) {
         zoomDistance = 100;
         planeSize = 500;
-        grassInstances = 40000
+        grassInstances = 40000;
       } 
       else if (windowWidth < 1000) {
         zoomDistance = 110;
