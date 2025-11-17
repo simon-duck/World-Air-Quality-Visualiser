@@ -621,7 +621,7 @@ builder.Services.Configure<RateLimitOptions>(
 
 ---
 
-### � Recommended: Bulk UID Endpoint Should Tolerate Partial Failures
+### 🟡 Recommended: Bulk UID Endpoint Should Tolerate Partial Failures
 
 **File:** `api/Controllers/AirQualityDataController.cs`
 
