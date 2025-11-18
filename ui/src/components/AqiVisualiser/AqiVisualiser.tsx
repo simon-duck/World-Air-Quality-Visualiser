@@ -320,4 +320,4 @@ export function AqiVisualiser({
 }
 
 // Export memoized version to prevent unnecessary re-renders
-export const AqiVisualiserMemo = memo(AqiVisualiser);
+export default memo(AqiVisualiser);
