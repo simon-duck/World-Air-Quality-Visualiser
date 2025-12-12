@@ -19,11 +19,11 @@ vi.mock('../utils/timeUtils', () => ({
 }))
 
 // Mock UI components
-vi.mock('./ui components/card', () => ({
+vi.mock('./ui-components/card', () => ({
   Card: ({ children, className }: any) => <div className={className}>{children}</div>
 }))
 
-vi.mock('./ui components/switch', () => ({
+vi.mock('./ui-components/switch', () => ({
   Switch: ({ checked, onCheckedChange, disabled, id }: any) => (
     <button
       data-testid={`switch-${id}`}
@@ -36,7 +36,7 @@ vi.mock('./ui components/switch', () => ({
   )
 }))
 
-vi.mock('./ui components/label', () => ({
+vi.mock('./ui-components/label', () => ({
   Label: ({ children, htmlFor }: any) => <label htmlFor={htmlFor}>{children}</label>
 }))
 
