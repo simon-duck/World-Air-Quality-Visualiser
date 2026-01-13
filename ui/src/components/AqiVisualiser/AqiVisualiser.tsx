@@ -154,6 +154,80 @@ export function AqiVisualiser({
   return (
     <>
       <div style={{ position: "relative" }}>
+        {/* Legend - bottom left */}
+        {!isLoading && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: "20px",
+              right: "20px",
+              backgroundColor: "rgba(255, 255, 255, 0.45)",
+              backdropFilter: "blur(10px)",
+              padding: "var(--spacing-md)",
+              borderRadius: "8px",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+              zIndex: 1000,
+              minWidth: "180px",
+            }}
+          >
+            <h4
+              style={{
+                margin: "0 0 var(--spacing-sm) 0",
+                fontSize: "var(--font-size-sm)",
+                fontWeight: "600",
+                color: "#2c2c2c",
+                lineHeight: "var(--line-height-tight)"
+              }}
+            >
+              Active Pollutants
+            </h4>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-xs)" }}>
+              {PARTICLE_CONFIGS.filter(config => enabledSystems[config.key] && particleCounts[config.key] > 0).map((config) => (
+                <div
+                  key={config.key}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "var(--spacing-xs)",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "16px",
+                      height: "16px",
+                      backgroundColor: config.color,
+                      borderRadius: "3px",
+                      flexShrink: 0,
+                      border: "1px solid rgba(0, 0, 0, 0.1)",
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontSize: "var(--font-size-sm)",
+                      color: "#2c2c2c",
+                      lineHeight: "var(--line-height-normal)",
+                    }}
+                  >
+                    {config.shortLabel}
+                  </span>
+                </div>
+              ))}
+              {PARTICLE_CONFIGS.filter(config => enabledSystems[config.key] && particleCounts[config.key] > 0).length === 0 && (
+                <span
+                  style={{
+                    fontSize: "var(--font-size-sm)",
+                    color: "#666",
+                    fontStyle: "italic",
+                    lineHeight: "var(--line-height-normal)",
+                  }}
+                >
+                  No Pollutants active
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+        
         {/* Loading overlay */}
         {isLoading && (
           <div
