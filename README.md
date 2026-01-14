@@ -14,7 +14,6 @@ World Air Pollution Visualiser is a full-stack web application for exploring and
 - [Usage](#usage)
 - [Troubleshooting](#troubleshooting)
 - [Configuration](#configuration)
-- [License](#license)
 
 ## Features
 
