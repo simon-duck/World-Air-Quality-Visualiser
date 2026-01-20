@@ -87,7 +87,6 @@
   --font-size-2xl: 1.5rem;       /* 24px */
   --text-tiny: 0.875rem;         /* 14px */
   
-  /* Line heights - use :root definitions for line-height variables */
   /* Spacing - integrate with our spacing scale */
   --spacing-0: 0;
   --spacing-1: 0.25rem;                    /* 4px */
