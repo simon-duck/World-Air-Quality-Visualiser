@@ -87,10 +87,10 @@
   --font-size-2xl: 1.5rem;       /* 24px */
   --text-tiny: 0.875rem;         /* 14px */
   
-  /* Line heights - integrate with our line-height scale */
-  --line-height-tight: 1.25;     /* 1.25 */
-  --line-height-normal: 1.5;     /* 1.5 */
-  --line-height-relaxed: 1.75;   /* 1.75 */
+  /* Line heights - use :root definitions for line-height variables */
+  
+  
+  
   
   /* Spacing - integrate with our spacing scale */
   --spacing-0: 0;
