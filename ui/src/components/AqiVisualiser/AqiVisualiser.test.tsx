@@ -63,10 +63,28 @@ const mockEnabledSystems = {
   so2: false
 }
 
+const mockAllDisabledSystems = {
+  aqi: false,
+  pm25: false,
+  pm10: false,
+  co: false,
+  co2: false,
+  no2: false,
+  so2: false
+}
+
 describe('AqiVisualiser', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
+
+  /**
+   * Helper function to advance time and wait for loading state to complete
+   */
+  const waitForLoadingComplete = async (rerender: () => void) => {
+    await vi.advanceTimersByTimeAsync(1500)
+    rerender()
+  }
 
   it('renders the Canvas component', () => {
     render(
@@ -238,16 +256,15 @@ describe('AqiVisualiser', () => {
         />
       )
       
-      // Fast-forward time to finish loading
-      await vi.advanceTimersByTimeAsync(1500)
-      
-      // Force a rerender
-      rerender(
-        <AqiVisualiser
-          data={mockIaqi}
-          overallAqi={65}
-          enabledSystems={mockEnabledSystems}
-        />
+      // Wait for loading to complete
+      await waitForLoadingComplete(() =>
+        rerender(
+          <AqiVisualiser
+            data={mockIaqi}
+            overallAqi={65}
+            enabledSystems={mockEnabledSystems}
+          />
+        )
       )
       
       // Legend title should be visible
@@ -267,34 +284,23 @@ describe('AqiVisualiser', () => {
     it('displays "No Pollutants active" when no pollutants are enabled', async () => {
       vi.useFakeTimers()
       
-      const allDisabled = {
-        aqi: false,
-        pm25: false,
-        pm10: false,
-        co: false,
-        co2: false,
-        no2: false,
-        so2: false
-      }
-      
       const { rerender } = render(
         <AqiVisualiser
           data={mockIaqi}
           overallAqi={65}
-          enabledSystems={allDisabled}
+          enabledSystems={mockAllDisabledSystems}
         />
       )
       
-      // Fast-forward time to finish loading
-      await vi.advanceTimersByTimeAsync(1500)
-      
-      // Force a rerender
-      rerender(
-        <AqiVisualiser
-          data={mockIaqi}
-          overallAqi={65}
-          enabledSystems={allDisabled}
-        />
+      // Wait for loading to complete
+      await waitForLoadingComplete(() =>
+        rerender(
+          <AqiVisualiser
+            data={mockIaqi}
+            overallAqi={65}
+            enabledSystems={mockAllDisabledSystems}
+          />
+        )
       )
       
       // Legend should show the "no pollutants" message
@@ -323,16 +329,15 @@ describe('AqiVisualiser', () => {
         />
       )
       
-      // Fast-forward time to finish loading
-      await vi.advanceTimersByTimeAsync(1500)
-      
-      // Force a rerender
-      rerender(
-        <AqiVisualiser
-          data={zeroDataIaqi}
-          overallAqi={0}
-          enabledSystems={mockEnabledSystems}
-        />
+      // Wait for loading to complete
+      await waitForLoadingComplete(() =>
+        rerender(
+          <AqiVisualiser
+            data={zeroDataIaqi}
+            overallAqi={0}
+            enabledSystems={mockEnabledSystems}
+          />
+        )
       )
       
       // Legend should show the "no pollutants" message even though some are enabled
@@ -352,16 +357,15 @@ describe('AqiVisualiser', () => {
         />
       )
       
-      // Fast-forward time to finish loading
-      await vi.advanceTimersByTimeAsync(1500)
-      
-      // Force a rerender
-      rerender(
-        <AqiVisualiser
-          data={mockIaqi}
-          overallAqi={65}
-          enabledSystems={mockEnabledSystems}
-        />
+      // Wait for loading to complete
+      await waitForLoadingComplete(() =>
+        rerender(
+          <AqiVisualiser
+            data={mockIaqi}
+            overallAqi={65}
+            enabledSystems={mockEnabledSystems}
+          />
+        )
       )
       
       // Legend list should have proper aria-label
