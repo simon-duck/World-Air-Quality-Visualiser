@@ -176,13 +176,6 @@ export function AqiVisualiser({
           >
             <figcaption
               className="legend-title"
-              style={{
-                margin: "0 0 var(--spacing-xs) 0",
-                fontSize: "var(--font-size-sm)",
-                fontWeight: "600",
-                color: "#2c2c2c",
-                lineHeight: "var(--line-height-tight)"
-              }}
             >
               Active Pollutants
             </figcaption>
