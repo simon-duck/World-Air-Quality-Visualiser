@@ -1,4 +1,5 @@
 import { PerspectiveCamera, OrbitControls, Edges } from "@react-three/drei";
+import "./AqiVisualiser.css";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import type { Iaqi } from "../../Api/ApiClient";
 import { useEffect, useRef, useState, useMemo, memo } from "react";
@@ -236,26 +237,7 @@ export function AqiVisualiser({
                 </span>
               )}
             </div>
-            <style>{`
-              @media (max-width: 768px) {
-                .legend-container {
-                  left: 15px !important;
-                  right: 15px !important;
-                  bottom: 10px !important;
-                  min-width: auto !important;
-                  width: calc(100% - 30px) !important;
-                }
-                .legend-title {
-                  display: none !important;
-                }
-                .legend-grid {
-                  grid-template-columns: repeat(3, 1fr) !important;
-                }
-                .legend-label {
-                  font-size: 0.7rem !important;
-                }
-              }
-            `}</style>
+            {/* Styles moved to AqiVisualiser.css */}
           </div>
         )}
         
