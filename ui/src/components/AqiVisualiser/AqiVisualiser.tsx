@@ -188,11 +188,6 @@ export function AqiVisualiser({
             </figcaption>
             <div 
               className="legend-grid"
-              style={{ 
-                display: "grid",
-                gridTemplateColumns: "repeat(1, 1fr)",
-                gap: "var(--spacing-xs)"
-              }}
             >
               {(() => {
                 const activeParticleConfigs = PARTICLE_CONFIGS.filter(
