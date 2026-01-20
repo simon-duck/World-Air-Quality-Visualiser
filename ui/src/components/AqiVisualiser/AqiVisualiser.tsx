@@ -157,7 +157,7 @@ export function AqiVisualiser({
       <div style={{ position: "relative" }}>
         {/* Legend - responsive positioning and layout */}
         {!isLoading && (
-          <div
+          <figure
             className="legend-container"
             style={{
               position: "absolute",
@@ -171,9 +171,10 @@ export function AqiVisualiser({
               boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
               zIndex: 1000,
               minWidth: "180px",
+              margin: 0,
             }}
           >
-            <h4
+            <figcaption
               className="legend-title"
               style={{
                 margin: "0 0 var(--spacing-xs) 0",
@@ -184,7 +185,7 @@ export function AqiVisualiser({
               }}
             >
               Active Pollutants
-            </h4>
+            </figcaption>
             <div 
               className="legend-grid"
               style={{ 
@@ -248,7 +249,7 @@ export function AqiVisualiser({
               })()}
             </div>
             {/* Styles moved to AqiVisualiser.css */}
-          </div>
+          </figure>
         )}
         
         {/* Loading overlay */}
