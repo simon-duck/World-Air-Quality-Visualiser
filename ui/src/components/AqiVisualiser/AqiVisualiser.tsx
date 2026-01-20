@@ -189,37 +189,48 @@ export function AqiVisualiser({
 
                 return (
                   <>
-                    {activeParticleConfigs.map((config) => (
-                      <div
-                        key={config.key}
+                    {activeParticleConfigs.length > 0 && (
+                      <ul
+                        aria-label="Active pollutants legend"
                         style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "var(--spacing-xs)",
+                          listStyle: "none",
+                          margin: 0,
+                          padding: 0,
                         }}
                       >
-                        <div
-                          style={{
-                            width: "14px",
-                            height: "14px",
-                            backgroundColor: config.color,
-                            borderRadius: "3px",
-                            flexShrink: 0,
-                            border: "1px solid rgba(0, 0, 0, 0.1)",
-                          }}
-                        />
-                        <span
-                          className="legend-label"
-                          style={{
-                            fontSize: "var(--font-size-sm)",
-                            color: "#2c2c2c",
-                            lineHeight: "var(--line-height-normal)",
-                          }}
-                        >
-                          {config.shortLabel}
-                        </span>
-                      </div>
-                    ))}
+                        {activeParticleConfigs.map((config) => (
+                          <li
+                            key={config.key}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "var(--spacing-xs)",
+                            }}
+                          >
+                            <div
+                              style={{
+                                width: "14px",
+                                height: "14px",
+                                backgroundColor: config.color,
+                                borderRadius: "3px",
+                                flexShrink: 0,
+                                border: "1px solid rgba(0, 0, 0, 0.1)",
+                              }}
+                            />
+                            <span
+                              className="legend-label"
+                              style={{
+                                fontSize: "var(--font-size-sm)",
+                                color: "#2c2c2c",
+                                lineHeight: "var(--line-height-normal)",
+                              }}
+                            >
+                              {config.shortLabel}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                     {activeParticleConfigs.length === 0 && (
                       <span
                         style={{
