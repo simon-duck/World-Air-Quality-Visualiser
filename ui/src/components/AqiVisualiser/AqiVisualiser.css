@@ -47,6 +47,6 @@
     grid-template-columns: repeat(3, 1fr);
   }
   .legend-label {
-    font-size: 0.7rem;
+    font-size: var(--font-size-xs);
   }
 }
