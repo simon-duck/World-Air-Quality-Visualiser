@@ -71,8 +71,6 @@
   --color-input: var(--input);
   --color-input-background: var(--input-background);
   --color-switch-background: var(--switch-background);
-  --color-ring: var(--ring);
-  --color-sidebar: var(--sidebar);
   
   /* Border radius */
   --radius-sm: calc(var(--radius) - 4px);
