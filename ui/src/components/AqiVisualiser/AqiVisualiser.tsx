@@ -157,8 +157,13 @@ export function AqiVisualiser({
       <div style={{ position: "relative" }}>
         {/* Legend - responsive positioning and layout */}
         {!isLoading && (
-          <figure className="legend-container">
-            <figcaption className="legend-title">
+          <figure
+            className="legend-container"
+            aria-label="Air quality pollutants legend"
+          >
+            <figcaption
+              className="legend-title"
+            >
               Active Pollutants
             </figcaption>
             <div className="legend-grid">
