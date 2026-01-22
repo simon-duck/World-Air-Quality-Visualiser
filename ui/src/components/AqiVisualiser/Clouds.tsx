@@ -39,13 +39,18 @@ export const CloudPattern = memo(function CloudPattern() {
           .trim()
       : '';
     
-    // Parse the value and unit - primarily expect 'vw' units
+    // Parse the value and unit - expects 'vw' units as defined in CSS
     const match = canvasWidthValue.match(/^([\d.]+)(vw)$/);
     let initialCanvasWidth;
     
     if (match) {
       const vwValue = parseFloat(match[1]);
-      initialCanvasWidth = window.innerWidth * (vwValue / 100);
+      // Validate the parsed value is a valid number
+      if (!isNaN(vwValue) && isFinite(vwValue) && vwValue > 0) {
+        initialCanvasWidth = window.innerWidth * (vwValue / 100);
+      } else {
+        initialCanvasWidth = window.innerWidth * 0.75; // 75vw default fallback
+      }
     } else {
       // Fallback to default if custom property is not found or uses unexpected units
       initialCanvasWidth = window.innerWidth * 0.75; // 75vw default
