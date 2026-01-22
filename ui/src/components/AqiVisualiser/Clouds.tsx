@@ -30,10 +30,36 @@ export const CloudPattern = memo(function CloudPattern() {
     cloudGroup10,
   ];
 
+  // Default canvas width in viewport width units (must match --canvas-width in CSS)
+  const DEFAULT_CANVAS_WIDTH_VW = 75;
+
   // Generate random initial positions and properties for each cloud group
   const [cloudConfigs] = useState(() => {
-    // Get initial canvas width for cloud positioning
-    const initialCanvasWidth = window.innerWidth * 0.75; // 75vw
+    // Get initial canvas width for cloud positioning from CSS custom property
+    const canvasWidthValue = document.documentElement
+      ? getComputedStyle(document.documentElement)
+          .getPropertyValue('--canvas-width')
+          .trim()
+      : '';
+    
+    // Parse the value and unit - expects 'vw' units as defined in CSS
+    // Regex ensures valid decimal number format (e.g., "75vw", "75.5vw")
+    const match = canvasWidthValue.match(/^(\d+(?:\.\d+)?)(vw)$/);
+    let initialCanvasWidth;
+    
+    if (match) {
+      const vwValue = parseFloat(match[1]);
+      // Validate the parsed value is a valid number
+      if (!isNaN(vwValue) && isFinite(vwValue) && vwValue > 0) {
+        initialCanvasWidth = window.innerWidth * (vwValue / 100);
+      } else {
+        initialCanvasWidth = window.innerWidth * (DEFAULT_CANVAS_WIDTH_VW / 100);
+      }
+    } else {
+      // Fallback to default if custom property is not found or uses unexpected units
+      initialCanvasWidth = window.innerWidth * (DEFAULT_CANVAS_WIDTH_VW / 100);
+    }
+    
     // Calculate safe Z range: not behind camera (65) and not in fog (starts at 200)
     const maxSafeZ = Math.min(150, initialCanvasWidth * 0.3); // Scale with canvas width, max 150
     const minSafeZ = -maxSafeZ; // Symmetric range in front of camera
