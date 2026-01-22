@@ -43,7 +43,8 @@ export const CloudPattern = memo(function CloudPattern() {
       : '';
     
     // Parse the value and unit - expects 'vw' units as defined in CSS
-    const match = canvasWidthValue.match(/^([\d.]+)(vw)$/);
+    // Regex ensures valid decimal number format (e.g., "75vw", "75.5vw")
+    const match = canvasWidthValue.match(/^(\d+(?:\.\d+)?)(vw)$/);
     let initialCanvasWidth;
     
     if (match) {
