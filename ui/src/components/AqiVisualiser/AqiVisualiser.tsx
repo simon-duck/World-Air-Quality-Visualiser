@@ -188,6 +188,7 @@ export function AqiVisualiser({
                               style={{
                                 backgroundColor: config.color,
                               }}
+                              aria-label={`${config.shortLabel} indicator`}
                             />
                             <span className="legend-label">
                               {config.shortLabel}
