@@ -85,7 +85,7 @@
   --font-size-lg: 1.125rem;      /* 18px */
   --font-size-xl: 1.25rem;       /* 20px */
   --font-size-2xl: 1.5rem;       /* 24px */
-  --text-tiny: 0.875rem;         /* 14px */
+  --text-tiny: var(--font-size-xs);  /* 12px */
   
   /* Spacing - integrate with our spacing scale */
   --spacing-0: 0;
