@@ -117,6 +117,11 @@
   100% { transform: rotate(360deg); }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner {
+    animation: none;
+  }
+}
 @media (max-width: 768px) {
   .legend-container {
     left: 15px;
