@@ -77,36 +77,47 @@ public class InputSanitizationServiceTests
     }
 
     [Theory]
-    [InlineData(100f, 90f)]      // Above max latitude
-    [InlineData(-100f, -90f)]    // Below min latitude
-    [InlineData(91f, 90f)]       // Just above max
-    [InlineData(-91f, -90f)]     // Just below min
-    public void SanitizeCoordinates_ClampsLatitudeToValidRange(float inputLat, float expectedLat)
+    [InlineData(100f)]      // Above max latitude
+    [InlineData(-100f)]     // Below min latitude
+    [InlineData(91f)]       // Just above max
+    [InlineData(-91f)]      // Just below min
+    public void SanitizeCoordinates_WithLatitudeOutOfRange_ThrowsArgumentException(float inputLat)
     {
         // Arrange
         float lon = 0f;
 
-        // Act
-        var (resultLat, _) = _service.SanitizeCoordinates(inputLat, lon);
-
-        // Assert
-        Assert.Equal(expectedLat, resultLat);
+        // Act & Assert
+        var ex = Assert.Throws<ArgumentException>(() => _service.SanitizeCoordinates(inputLat, lon));
+        Assert.Contains("Latitude must be between -90 and 90", ex.Message);
     }
 
     [Theory]
-    [InlineData(200f, -180f)]    // Above max longitude (wraps or clamps)
-    [InlineData(-200f, -180f)]   // Below min longitude
-    [InlineData(180f, -180f)]    // Edge case: 180° normalizes to -180°
-    public void SanitizeCoordinates_ClampsLongitudeToValidRange(float inputLon, float expectedLon)
+    [InlineData(200f)]      // Above max longitude
+    [InlineData(-200f)]     // Below min longitude
+    [InlineData(181f)]      // Just above max
+    [InlineData(-181f)]     // Just below min
+    public void SanitizeCoordinates_WithLongitudeOutOfRange_ThrowsArgumentException(float inputLon)
     {
         // Arrange
         float lat = 0f;
 
+        // Act & Assert
+        var ex = Assert.Throws<ArgumentException>(() => _service.SanitizeCoordinates(lat, inputLon));
+        Assert.Contains("Longitude must be between -180 and 180", ex.Message);
+    }
+
+    [Fact]
+    public void SanitizeCoordinates_With180Longitude_NormalizesToNegative180()
+    {
+        // Arrange - 180° is a valid edge case that normalizes to -180°
+        float lat = 0f;
+        float lon = 180f;
+
         // Act
-        var (_, resultLon) = _service.SanitizeCoordinates(lat, inputLon);
+        var (_, resultLon) = _service.SanitizeCoordinates(lat, lon);
 
         // Assert
-        Assert.Equal(expectedLon, resultLon, 5);
+        Assert.Equal(-180f, resultLon, 5);
     }
 
     [Fact]
