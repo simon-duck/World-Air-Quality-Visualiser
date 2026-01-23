@@ -34,22 +34,16 @@ namespace api.Services
                 throw new ArgumentException("Invalid coordinate values detected.");
             }
 
-            // Step 2: Check for suspicious precision (potential coordinated attack)
-            if (HasSuspiciousPrecision(lat) || HasSuspiciousPrecision(lon))
-            {
-                _logger.LogWarning("Suspicious precision detected: lat={Lat}, lon={Lon}", lat, lon);
-            }
-
-            // Step 3: Normalize precision to reasonable level
-            lat = NormalizePrecision(lat);
-            lon = NormalizePrecision(lon);
-
-            // Step 4: Clamp to valid geographic ranges
+            // Step 2: Clamp to valid geographic ranges
             lat = Math.Clamp(lat, -90f, 90f);
             lon = NormalizeLongitude(lon);
 
-            // Step 5: Log if values were significantly modified
-            if (Math.Abs(originalLat - lat) > 0.01f || Math.Abs(originalLon - lon) > 0.01f)
+            // Step 3: Normalize precision to reasonable level (6 decimal places ≈ 0.1m accuracy)
+            lat = NormalizePrecision(lat);
+            lon = NormalizePrecision(lon);
+
+            // Step 4: Log if values were significantly modified (more than 1 degree change)
+            if (Math.Abs(originalLat - lat) > 1f || Math.Abs(originalLon - lon) > 1f)
             {
                 _logger.LogInformation(
                     "Coordinates sanitized: ({OriginalLat},{OriginalLon}) -> ({NewLat},{NewLon})",
@@ -120,23 +114,11 @@ namespace api.Services
                 && !float.IsPositiveInfinity(value);
         }
 
-        private static bool HasSuspiciousPrecision(float value)
-        {
-            // Check if the value has more than 8 decimal places (suspicious for coordinates)
-            var str = value.ToString("F10", CultureInfo.InvariantCulture);
-            var decimalIndex = str.IndexOf('.');
-
-            if (decimalIndex == -1)
-                return false;
-
-            var decimalPlaces = str.Length - decimalIndex - 1;
-            return decimalPlaces > 8;
-        }
-
         private static float NormalizePrecision(float value)
         {
-            // Round to 5 decimal places (approximately 1.1 meter accuracy at equator)
-            return (float)Math.Round(value, 5);
+            // Round to 6 decimal places (approximately 0.1 meter accuracy at equator)
+            // This is sufficient for location-based queries while avoiding floating-point noise
+            return (float)Math.Round(value, 6);
         }
 
         private static float NormalizeLongitude(float lon)
