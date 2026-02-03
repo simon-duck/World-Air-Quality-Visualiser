@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      packages: read
       statuses: write
     steps:
       - name: Checkout code
@@ -25,14 +26,14 @@ jobs:
           fetch-depth: 0
 
       - name: Lint Code Base
-        uses: github/super-linter@v4
+        uses: github/super-linter@v7
         env:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_JAVASCRIPT_ES: true
-          VALIDATE_JAVASCRIPT_PRETTIER: true
-          VALIDATE_HTML_PRETTIER: true
+          VALIDATE_JAVASCRIPT_STANDARD: true
+          VALIDATE_HTML: true
           VALIDATE_CSHARP: true
-          VALIDATE_CSS_PRETTIER: true
+          VALIDATE_CSS: true
           
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
