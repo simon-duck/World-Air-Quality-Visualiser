@@ -2,7 +2,7 @@
 <p>
 </p>
 
-> World Air Quality Visualiser is a full-stack web app for exploring location based live air quality data through 3D visualiations driven by React Three Fiber. Air quality data is provided by the API provided at https://aqicn.org/
+> World Air Quality Visualiser is a full-stack web app for exploring location based live air quality data through 3D visualisations driven by React Three Fiber. Air quality data is provided by the API provided at https://aqicn.org/
 
 ### 🏠 [Homepage](https://worldairqualityvisualiser.online/)
 
@@ -33,8 +33,8 @@
    ```
 4. **Configure environment variables**
     - Create .env file in both `ui/` and `api/` folders.
-   - Edit the 'ui' .env file to  include - `VITE_API_BASE_URL`: set to your backend API endpoint.
-   - Edit the 'api' .env file to include = `API_EXTERNAL_KEY`: set your API key from[https://aqicn.org/data-platform/token/].
+   - Edit the 'ui' .env file to  include `VITE_API_BASE_URL`: set to your backend API endpoint.
+   - Edit the 'api' .env file to include `API_EXTERNAL_KEY`: set your API key from[https://aqicn.org/data-platform/token/].
    - For detailed setup, see comments in each `.env.example`
 
 5. **Run the backend**
@@ -51,17 +51,19 @@
 
 ## Run tests
 
+7. **Run the frontend tests**
+   ```sh
+   cd ../ui
+   npm run dev
+   ```
+   
 8. **Run the backend tests**
    ```sh
    cd api.tests
    dotnet test
    ```
 
-6. **Run the frontend tests**
-   ```sh
-   cd ../ui
-   npm run dev
-   ```
+
 
 ## Usage
 
