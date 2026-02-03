@@ -2,10 +2,11 @@
 <p>
 </p>
 
-> World Air Quality Visualiser is a full-stack web app for exploring location based live air quality data through 3D visualisations driven by React Three Fiber. Air quality data is provided by the API provided at https://aqicn.org/
+> World Air Quality Visualiser is a full-stack web app for exploring location based live air quality data through 3D visualisations driven by React Three Fiber. Air quality data is provided by the API provided at [https://aqicn.org/]
 
 ### 🏠 [Homepage](https://worldairqualityvisualiser.online/)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ef6f6594-1863-40b2-b2b9-1cfb9025f7a5/deploy-status)](https://app.netlify.com/projects/worldairqualityvisualiser/deploys)
 
 ## Install
 
@@ -34,7 +35,7 @@
 4. **Configure environment variables**
     - Create .env file in both `ui/` and `api/` folders.
    - Edit the 'ui' .env file to  include `VITE_API_BASE_URL`: set to your backend API endpoint.
-   - Edit the 'api' .env file to include `API_EXTERNAL_KEY`: set your API key from[https://aqicn.org/data-platform/token/].
+   - Edit the 'api' .env file to include `API_EXTERNAL_KEY`: set your API key from [https://aqicn.org/data-platform/token/].
    - For detailed setup, see comments in each `.env.example`
 
 5. **Run the backend**
