@@ -4,7 +4,7 @@
 
 > World Air Quality Visualiser is a full-stack web app for exploring location based live air quality data through 3D visualisations driven by React Three Fiber. Air quality data is provided by the API provided at [https://aqicn.org/]
 
-### 🏠 [Homepage - click to visit](https://worldairqualityvisualiser.online/)
+### 🏠 [Visit Homepage](https://worldairqualityvisualiser.online/)
 
 ## Install
 
