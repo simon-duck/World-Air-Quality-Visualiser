@@ -104,7 +104,7 @@
 - **Controller**: 
     - The [controller](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/api/Controllers/AirQualityDataController.cs) defines the endpoints to access AQI data by UID(s) or Latitude/Longitude. 
 
-- **Sanitizion**:
+- **Sanitization**:
     - The controller calls the [sanitization](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/api/Services/InputSanitizationService.cs) service to clean and validate user input to prevent invalid data or injection attacks. 
 
 
