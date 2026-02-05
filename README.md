@@ -91,6 +91,61 @@
 - **Map & Visuals**:  
   - Tweak defaults and behaviour in `ui/src/Pages/Home/HomePage.tsx` and `ui/src/components/AqiVisualiser/AqiVisualiser.tsx`.
 
+## Structure
+
+1. **Backend API**
+
+- **Program**:
+    - The [program](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/api/Program.cs) bootstraps the API, ensuring all necessary components are initialized and the application is ready to handle HTTP requests.
+
+- **Repository**:
+    - The [repository](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/api/Repositories/AirQualityDataRepository.cs) contains the logic to interact with the API at [aqicn.org](https://aqicn.org/api/)
+
+- **Controller**: 
+    - The [controller](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/api/Controllers/AirQualityDataController.cs) defines the endpoints to access AQI data by UID(s) or Latitude/Longitude. 
+
+- **Sanitizion**:
+    - The controller calls the [sanitization](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/api/Services/InputSanitizationService.cs) service to clean and validate user input to prevent invalid data or injection attacks. 
+
+
+2. **Data Models**
+
+    - The DTO is defined in the backend [here](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/api/Models/Dto/AirQualityDataSetDto.cs)
+    - The DTO is defined in the frontend [here](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/Api/ApiClient.tsx) which also contains the logic for sending requests to the backend API.
+
+
+3. **Frontend UI**
+
+    
+
+      - Routing takes places from [App](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/App.tsx)       
+  
+      - This displays the [Home](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/Pages/Home/HomePage.tsx) page, which currently manages a lot of the state for the app.
+    
+    - **Form Components**:
+
+      - (FindDataForNearestStationForm.tsx)[https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/FormComponents/FindDataForNearestStationForm.tsx] displays the context dependant "hide map" and "show map" button and allows the submission of long/lat data by a map click.
+
+      - [MapComponent.tsx](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/FormComponents/MapComponent.tsx) manages the map visibility, initial coordinates and 
+    
+      -[LocationMapMarker](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/FormComponents/LocationMarkerMap.tsx) displays the map marker and updates both it's position and lat/long form fields on mouse click.
+
+    - **AQIVisualiser**:
+        
+      - [AqiVisualiser.tsx](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/AqiVisualiser/AqiVisualiser.tsx) is the main 3D visualisation using [React Three Fiber](https://r3f.docs.pmnd.rs/getting-started/introduction) to show particle systems with the number of particles based on the current values of air pollutants at the nearest recording station to the selected location. 
+  
+      - [Particle Systems](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/AqiVisualiser/ParticleSystems.tsx) defines the individual particle systems and was inspired by this ThreeJs [example](https://threejs.org/examples/#webgl_buffergeometry_drawrange), the code for which is [here](https://github.com/mrdoob/three.js/blob/master/examples/webgl_buffergeometry_drawrange.html). It also handles collision detection for both other particles and the bounds of the containing box. 
+
+      - [Clouds](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/AqiVisualiser/Clouds.tsx) and [Sun](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/AqiVisualiser/Sun.tsx) use elements from the [React Three Drei](https://drei.docs.pmnd.rs/getting-started/introduction) library to provide a background for the visualisation. The Sun visualisation reacts to the current local timezone, using the browser-geo-tz and date-fns-tz libraries.
+
+      - [Grass] provides the ground for the visualisation, and is based on the codesandbox [here](https://codepen.io/al-ro/pen/jJJygQ)
+
+    - **AQI Figures Displays**:
+  
+      - [AQIFiguresDisplay](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/AqiFiguresDisplay.css) displays the responsive control panel with the current AQI values for the selected location, the location and local time and controls to activate or deactivate the visualisation for each available pollutant.
+
+      - [TickerTape](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/TickerTape.tsx) displays a moving ticker-tape display at the bottom of the screen with current AQI values for major world cities. It uses [motion/react](https://motion.dev/docs/react) to create the scroll and updates the live data every ten minutes.
+
 ## Author
 
 👤 **Simon Duck**
