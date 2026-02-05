@@ -121,7 +121,7 @@ export function AqiVisualiser({
 
 const getParticleCount = (value: number) => {
 
-  return Math.max(0, Math.min(800, Math.round((value / 500) * 1200)));
+  return Math.max(0, Math.min(800, Math.round((value / 500) * 800)));
 };
 
   // Memoize particle counts to avoid recalculation on every render
