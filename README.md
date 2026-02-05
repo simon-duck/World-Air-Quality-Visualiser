@@ -118,7 +118,7 @@
 
     
 
-      - Routing takes places from [App](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/App.tsx)       
+      - Routing takes place from [App](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/App.tsx)       
   
       - This displays the [Home](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/Pages/Home/HomePage.tsx) page, which currently manages a lot of the state for the app.
     
