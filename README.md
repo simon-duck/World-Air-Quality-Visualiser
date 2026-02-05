@@ -126,7 +126,7 @@
 
       - (FindDataForNearestStationForm.tsx)[https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/FormComponents/FindDataForNearestStationForm.tsx] displays the context dependant "hide map" and "show map" button and allows the submission of long/lat data by a map click.
 
-      - [MapComponent.tsx](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/FormComponents/MapComponent.tsx) manages the map visibility, initial coordinates and 
+      - [MapComponent.tsx](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/FormComponents/MapComponent.tsx) manages the map visibility, initial coordinates and user interactions on the map, such as panning and zooming.
     
       -[LocationMapMarker](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/FormComponents/LocationMarkerMap.tsx) displays the map marker and updates both it's position and lat/long form fields on mouse click.
 
