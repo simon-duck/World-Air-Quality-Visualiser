@@ -142,7 +142,7 @@
 
     - **AQI Figures Displays**:
   
-      - [AQIFiguresDisplay](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/AqiFiguresDisplay.css) displays the responsive control panel with the current AQI values for the selected location, the location and local time and controls to activate or deactivate the visualisation for each available pollutant.
+      - [AQIFiguresDisplay](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/AqiFiguresDisplay.tsx) displays the responsive control panel with the current AQI values for the selected location, the location and local time and controls to activate or deactivate the visualisation for each available pollutant.
 
       - [TickerTape](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/TickerTape.tsx) displays a moving ticker-tape display at the bottom of the screen with current AQI values for major world cities. It uses [motion/react](https://motion.dev/docs/react) to create the scroll and updates the live data every ten minutes.
 
