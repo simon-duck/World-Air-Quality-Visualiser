@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to WorldAirQualityVisualiser 👋</h1>
+<h1 align="center">Welcome to WorldAirQualityVisualiser</h1>
 <p>
 </p>
 
