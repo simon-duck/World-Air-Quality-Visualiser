@@ -1,11 +1,10 @@
-<h1 align="center">Welcome to WorldAirQualityVisualiser 👋</h1>
+<h1 align="center">Welcome to WorldAirQualityVisualiser</h1>
 <p>
 </p>
 
-> World Air Quality Visualiser is a full-stack web app for exploring location based live air quality data through 3D visualiations driven by React Three Fiber. Air quality data is provided by the API provided at https://aqicn.org/
+> World Air Quality Visualiser is a full-stack web app for exploring location based live air quality data through 3D visualisations driven by React Three Fiber. Air quality data is provided by the API provided at [https://aqicn.org/]
 
-### 🏠 [Homepage](https://worldairqualityvisualiser.online/)
-
+### 🏠 [Visit Homepage](https://worldairqualityvisualiser.online/)
 
 ## Install
 
@@ -33,8 +32,8 @@
    ```
 4. **Configure environment variables**
     - Create .env file in both `ui/` and `api/` folders.
-   - Edit the 'ui' .env file to  include - `VITE_API_BASE_URL`: set to your backend API endpoint.
-   - Edit the 'api' .env file to include = `API_EXTERNAL_KEY`: set your API key from[https://aqicn.org/data-platform/token/].
+   - Edit the 'ui' .env file to  include `VITE_API_BASE_URL`: set to your backend API endpoint.
+   - Edit the 'api' .env file to include `API_EXTERNAL_KEY`: set your API key from [https://aqicn.org/data-platform/token/].
    - For detailed setup, see comments in each `.env.example`
 
 5. **Run the backend**
@@ -51,17 +50,19 @@
 
 ## Run tests
 
+7. **Run the frontend tests**
+   ```sh
+   cd ../ui
+   npm run dev
+   ```
+   
 8. **Run the backend tests**
    ```sh
    cd api.tests
    dotnet test
    ```
 
-6. **Run the frontend tests**
-   ```sh
-   cd ../ui
-   npm run dev
-   ```
+
 
 ## Usage
 
@@ -124,7 +125,7 @@
     
     - **Form Components**:
 
-      - (FindDataForNearestStationForm.tsx)[https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/FormComponents/FindDataForNearestStationForm.tsx] displays the context dependent "hide map" and "show map" button and allows the submission of long/lat data by a map click.
+      - [FindDataForNearestStationForm](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/FormComponents/FindDataForNearestStationForm.tsx) displays the context dependent "hide map" and "show map" button and allows the submission of long/lat data by a map click.
 
       - [MapComponent.tsx](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/FormComponents/MapComponent.tsx) manages the map visibility, initial coordinates and user interactions on the map, such as panning and zooming.
     
@@ -132,13 +133,13 @@
 
     - **AQIVisualiser**:
         
-      - [AqiVisualiser.tsx](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/AqiVisualiser/AqiVisualiser.tsx) is the main 3D visualisation using [React Three Fiber](https://r3f.docs.pmnd.rs/getting-started/introduction) to show particle systems with the number of particles based on the current values of air pollutants at the nearest recording station to the selected location. 
+      - [AqiVisualiser](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/AqiVisualiser/AqiVisualiser.tsx) is the main 3D visualisation using [React Three Fiber](https://r3f.docs.pmnd.rs/getting-started/introduction) to show particle systems with the number of particles based on the current values of air pollutants at the nearest recording station to the selected location. 
   
       - [Particle Systems](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/AqiVisualiser/ParticleSystems.tsx) defines the individual particle systems and was inspired by this ThreeJs [example](https://threejs.org/examples/#webgl_buffergeometry_drawrange), the code for which is [here](https://github.com/mrdoob/three.js/blob/master/examples/webgl_buffergeometry_drawrange.html). It also handles collision detection for both other particles and the bounds of the containing box. 
 
       - [Clouds](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/AqiVisualiser/Clouds.tsx) and [Sun](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/AqiVisualiser/Sun.tsx) use elements from the [React Three Drei](https://drei.docs.pmnd.rs/getting-started/introduction) library to provide a background for the visualisation. The Sun visualisation reacts to the current local timezone, using the browser-geo-tz and date-fns-tz libraries.
 
-      - [Grass] provides the ground for the visualisation, and is based on the codesandbox [here](https://codepen.io/al-ro/pen/jJJygQ)
+      - [Grass](https://github.com/simon-duck/World-Air-Quality-Visualiser/blob/main/ui/src/components/AqiVisualiser/Grass.tsx) provides the ground for the visualisation, and is based on the codesandbox [here](https://codepen.io/al-ro/pen/jJJygQ)
 
     - **AQI Figures Displays**:
   
